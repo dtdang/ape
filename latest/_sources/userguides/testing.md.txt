@@ -338,14 +338,77 @@ def foo():
     self._foo_internal()  # dev: incorrect location
 ```
 
+### Custom Errors
+
+As of Solidity 0.8.4, custom errors have been introduced to the ABI.
+To make assertions on custom errors, you can use the types defined on your contracts.
+
+For example, if I have a contract called `MyContract.sol`:
+
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.4;
+
+error Unauthorized(address addr);
+
+contract MyContract {
+    address payable owner = payable(msg.sender);
+    function withdraw() public {
+        if (msg.sender != owner)
+            revert Unauthorized(msg.sender);
+        owner.transfer(address(this).balance);
+    }
+}
+```
+
+I can ensure unauthorized withdraws are disallowed by writing the following test:
+
+```python
+import ape
+import pytest
+
+@pytest.fixture
+def owner(accounts):
+    return accounts[0]
+
+@pytest.fixture
+def hacker(accounts):
+    return accounts[1]
+
+@pytest.fixture
+def contract(owner, project):
+    return owner.deploy(project.MyContract)
+
+def test_unauthorized_withdraw(contract, hacker):
+    with ape.reverts(contract.Unauthorized, addr=hacker.address):
+        contract.withdraw(sender=hacker)
+```
+
 ## Multi-chain Testing
 
-The Ape framework supports connecting to alternative providers in tests.
-The easiest way to achieve this is to use the `networks` provider context-manager.
+The Ape framework supports connecting to alternative networks / providers in tests.
+
+To run an entire test using a specific network / provider combination, use the `use_network` pytest marker:
+
+```python
+import pytest
+
+
+@pytest.mark.use_network("fantom:local:test")
+def test_my_fantom_test(chain):
+    assert chain.provider.network.ecosystem.name == "fantom"
+
+
+@pytest.mark.use_network("ethereum:local:test")
+def test_my_ethereum_test(chain):
+    assert chain.provider.network.ecosystem.name == "ethereum"
+```
+
+To switch networks mid-test, use the `networks` context-manager:
 
 ```python
 # Switch to Fantom mid test
-def test_my_fantom_test(networks):
+def test_my_multichain_test(networks):
     # The test starts in 1 ecosystem but switches to another
     assert networks.provider.network.ecosystem.name == "ethereum"
 
@@ -357,7 +420,8 @@ def test_my_fantom_test(networks):
        assert provider.network.ecosystem.name == "fantom"
 ```
 
-You can also set the network context in a context-manager pytest fixture:
+You can also set the network context in a pytest fixture.
+This is useful if certain fixtures must run in certain networks.
 
 ```python
 import pytest
