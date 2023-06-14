@@ -65,7 +65,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguides/accounts.html">Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/installing_plugins.html">Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/projects.html">Developing Projects with Ape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguides/dependencies.html">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/compile.html">Compile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguides/clis.html">CLIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/data.html">Querying Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/networks.html">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/developing_plugins.html">Developing Plugins</a></li>
@@ -598,7 +600,7 @@ for testing providers.</p>
 <li><p><strong>mnemonic</strong> (<em>str</em>) – mnemonic phrase or seed words.</p></li>
 <li><p><strong>number_of_accounts</strong> (<em>int</em>) – Number of accounts. Defaults to <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p></li>
 <li><p><strong>hd_path_format</strong> (<em>str</em>) – Hard Wallets/HD Keys derivation path format.
-Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;m/44'/60'/0'/0/{}&quot;</span></code>.</p></li>
+Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;m/44'/60'/0'/{}&quot;</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -821,7 +823,7 @@ Progress bar will be displayed in the CLI.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="ape.utils.use_temp_sys_path">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ape.utils.</span></span><span class="sig-name descname"><span class="pre">use_temp_sys_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ape.utils.use_temp_sys_path" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ape.utils.</span></span><span class="sig-name descname"><span class="pre">use_temp_sys_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ape.utils.use_temp_sys_path" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A context manager to manage injecting and removing paths from
 a user’s sys paths without permanently modifying it.</p>

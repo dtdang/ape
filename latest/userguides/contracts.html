@@ -66,7 +66,9 @@
 <li class="toctree-l1"><a class="reference internal" href="accounts.html">Accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installing_plugins.html">Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="projects.html">Developing Projects with Ape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="compile.html">Compile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clis.html">CLIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">Querying Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developing_plugins.html">Developing Plugins</a></li>
@@ -78,7 +80,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#from-project-contract-address">From Project Contract Address</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#from-any-address">From Any Address</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#from-previous-deployment">From Previous Deployment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#contract-interaction">Contract Interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contract-interaction">Contract Interaction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#default-fallback-and-direct-calls">Default, Fallback, and Direct Calls</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#private-transactions">Private Transactions</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#decoding-and-encoding-inputs">Decoding and Encoding Inputs</a></li>
 </ul>
 </li>
@@ -174,6 +180,8 @@ The names of your contracts are properties on the <code class="docutils literal 
 </pre></div>
 </div>
 <p>With this technique, you can feed as many constructor arguments as your contract constructor requires.</p>
+<p><strong>NOTE</strong>: You can also publish the contract source code to an explorer upon deployment using the <code class="docutils literal notranslate"><span class="pre">publish=</span></code> kwarg on the deploy methods.
+More information on publishing contracts can be found in <a class="reference external" href="./publishing.html">this guide</a>.</p>
 <p>If you do not pass the correct amount of constructor arguments when deploying, you will get an error showing your arguments don’t match what is in the ABI:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ArgumentsLengthError:<span class="w"> </span>The<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>given<span class="w"> </span>arguments<span class="w"> </span><span class="o">(</span><span class="m">0</span><span class="o">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>not<span class="w"> </span>match<span class="w"> </span>what<span class="w"> </span>is<span class="w"> </span>defined<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>ABI<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="o">)</span>.
 </pre></div>
@@ -257,6 +265,29 @@ For example, let’s say you have a Vyper contract containing some functions:</p
 <span class="n">receipt</span> <span class="o">=</span> <span class="n">contract</span><span class="o">.</span><span class="n">set_number</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">dev</span><span class="p">)</span>
 </pre></div>
 </div>
+<section id="default-fallback-and-direct-calls">
+<h3>Default, Fallback, and Direct Calls<a class="headerlink" href="#default-fallback-and-direct-calls" title="Permalink to this heading"></a></h3>
+<p>To directly call an address, such as invoking a contract’s <code class="docutils literal notranslate"><span class="pre">fallback</span></code> or <code class="docutils literal notranslate"><span class="pre">receive</span></code> method, call a contract instance directly:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ape</span> <span class="kn">import</span> <span class="n">Contract</span><span class="p">,</span> <span class="n">accounts</span>
+
+<span class="n">sender</span> <span class="o">=</span> <span class="n">accounts</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;dev&quot;</span><span class="p">)</span>
+<span class="n">contract</span> <span class="o">=</span> <span class="n">Contract</span><span class="p">(</span><span class="s2">&quot;0x123...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Call the contract&#39;s fallback method.</span>
+<span class="n">receipt</span> <span class="o">=</span> <span class="n">contract</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">sender</span><span class="p">,</span> <span class="n">gas</span><span class="o">=</span><span class="mi">40000</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="s2">&quot;0x123&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="private-transactions">
+<h3>Private Transactions<a class="headerlink" href="#private-transactions" title="Permalink to this heading"></a></h3>
+<p>If you are using a provider that allows private mempool transactions, you are able to use the <code class="docutils literal notranslate"><span class="pre">private=True</span></code> kwarg to publish your transaction into a private mempool.
+For example, EVM providers likely will use the <code class="docutils literal notranslate"><span class="pre">eth_sendPrivateTransaction</span></code> RPC to achieve this.</p>
+<p>To send a private transaction, do the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">receipt</span> <span class="o">=</span> <span class="n">contract</span><span class="o">.</span><span class="n">set_number</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">dev</span><span class="p">,</span> <span class="n">private</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">private=True</span></code> is available on all contract interactions.</p>
+</section>
 </section>
 <section id="decoding-and-encoding-inputs">
 <h2>Decoding and Encoding Inputs<a class="headerlink" href="#decoding-and-encoding-inputs" title="Permalink to this heading"></a></h2>
@@ -271,7 +302,7 @@ If you know the method you want to use when decoding or encoding, you can call m
 </div>
 <p>In the example above, the bytes value returned contains the method ID selector prefix <code class="docutils literal notranslate"><span class="pre">3fb5c1c</span></code>.
 Alternatively, you can decode input:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hexbytes</span> <span class="kn">import</span> <span class="n">HexBytes</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ethpm_types</span> <span class="kn">import</span> <span class="n">HexBytes</span>
 <span class="kn">from</span> <span class="nn">ape</span> <span class="kn">import</span> <span class="n">Contract</span>
 
 <span class="n">contract</span> <span class="o">=</span> <span class="n">Contract</span><span class="p">(</span><span class="s2">&quot;0x...&quot;</span><span class="p">)</span>
