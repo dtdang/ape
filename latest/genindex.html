@@ -47,6 +47,57 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.6.13">v0.6.13</option>
+                <option value="v0.6.12">v0.6.12</option>
+                <option value="v0.6.11">v0.6.11</option>
+                <option value="v0.6.10">v0.6.10</option>
+                <option value="v0.6.9">v0.6.9</option>
+                <option value="v0.6.8">v0.6.8</option>
+                <option value="v0.6.7">v0.6.7</option>
+                <option value="v0.6.6">v0.6.6</option>
+                <option value="v0.6.5">v0.6.5</option>
+                <option value="v0.6.4">v0.6.4</option>
+                <option value="v0.6.3">v0.6.3</option>
+                <option value="v0.6.2">v0.6.2</option>
+                <option value="v0.6.1">v0.6.1</option>
+                <option value="v0.6.0">v0.6.0</option>
+                <option value="v0.5.9">v0.5.9</option>
+                <option value="v0.5.8">v0.5.8</option>
+                <option value="v0.5.7">v0.5.7</option>
+                <option value="v0.5.6">v0.5.6</option>
+                <option value="v0.5.5">v0.5.5</option>
+                <option value="v0.5.4">v0.5.4</option>
+                <option value="v0.5.3">v0.5.3</option>
+                <option value="v0.5.2">v0.5.2</option>
+                <option value="v0.5.1">v0.5.1</option>
+                <option value="v0.5.0">v0.5.0</option>
+                <option value="v0.4.5">v0.4.5</option>
+                <option value="v0.4.4">v0.4.4</option>
+                <option value="v0.4.3">v0.4.3</option>
+                <option value="v0.4.2">v0.4.2</option>
+                <option value="v0.4.1">v0.4.1</option>
+                <option value="v0.4.0">v0.4.0</option>
+                <option value="v0.3.5">v0.3.5</option>
+                <option value="v0.3.4">v0.3.4</option>
+                <option value="v0.3.3">v0.3.3</option>
+                <option value="v0.3.2">v0.3.2</option>
+                <option value="v0.3.1">v0.3.1</option>
+                <option value="v0.3.0">v0.3.0</option>
+                <option value="v0.2.8">v0.2.8</option>
+                <option value="v0.2.7">v0.2.7</option>
+                <option value="v0.2.6">v0.2.6</option>
+                <option value="v0.2.5">v0.2.5</option>
+                <option value="v0.2.4">v0.2.4</option>
+                <option value="v0.2.3">v0.2.3</option>
+                <option value="v0.2.2">v0.2.2</option>
+                <option value="v0.2.1">v0.2.1</option>
+                <option value="v0.2.0">v0.2.0</option>
+                <option value="v0.1.6">v0.1.6</option>
+                <option value="v0.1.5">v0.1.5</option>
+                <option value="v0.1.4">v0.1.4</option>
+                <option value="v0.1.3">v0.1.3</option>
+                <option value="v0.1.1">v0.1.1</option>
+                <option value="v0.1.0">v0.1.0</option>
             </select>
           </div>
 <div role="search">
@@ -73,6 +124,7 @@
 <li class="toctree-l1"><a class="reference internal" href="userguides/transactions.html">Making Transactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguides/console.html">Ape Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguides/contracts.html">Contracts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguides/proxy.html">Proxy Contracts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguides/testing.html">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguides/scripts.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguides/publishing.html">Publishing</a></li>
@@ -81,6 +133,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="commands/accounts.html">accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/compile.html">compile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands/pm.html">pm</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/console.html">console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/init.html">init</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/networks.html">networks</a></li>
@@ -166,6 +219,8 @@
 </li>
         <li><a href="commands/plugins.html#cmdoption-plugins-list-a">plugins-list command line option</a>
 </li>
+        <li><a href="commands/pm.html#cmdoption-pm-list-all">pm-list command line option</a>
+</li>
       </ul></li>
       <li>
     --ecosystem
@@ -179,6 +234,10 @@
 
       <ul>
         <li><a href="commands/compile.html#cmdoption-compile-f">compile command line option</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-f">pm-compile command line option</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-f">pm-install command line option</a>
 </li>
       </ul></li>
       <li>
@@ -212,10 +271,24 @@
 </li>
       </ul></li>
       <li>
+    --include-dependencies
+
+      <ul>
+        <li><a href="commands/compile.html#cmdoption-compile-include-dependencies">compile command line option</a>
+</li>
+      </ul></li>
+      <li>
     --interactive
 
       <ul>
         <li><a href="commands/run.html#cmdoption-run-I">run command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --name
+
+      <ul>
+        <li><a href="commands/pm.html#cmdoption-pm-install-name">pm-install command line option</a>
 </li>
       </ul></li>
       <li>
@@ -232,6 +305,13 @@
 
       <ul>
         <li><a href="commands/networks.html#cmdoption-networks-list-provider">networks-list command line option</a>
+</li>
+      </ul></li>
+      <li>
+    --ref
+
+      <ul>
+        <li><a href="commands/pm.html#cmdoption-pm-install-ref">pm-install command line option</a>
 </li>
       </ul></li>
       <li>
@@ -285,11 +365,26 @@
 </li>
         <li><a href="commands/plugins.html#cmdoption-plugins-uninstall-v">plugins-uninstall command line option</a>
 </li>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-v">pm-compile command line option</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-v">pm-install command line option</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-list-v">pm-list command line option</a>
+</li>
         <li><a href="commands/test.html#cmdoption-test-v">test command line option</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    --version
+
+      <ul>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-version">pm-compile command line option</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-version">pm-install command line option</a>
+</li>
+      </ul></li>
       <li>
     --watch
 
@@ -339,6 +434,10 @@
 
       <ul>
         <li><a href="commands/compile.html#cmdoption-compile-f">compile command line option</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-f">pm-compile command line option</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-f">pm-install command line option</a>
 </li>
       </ul></li>
       <li>
@@ -392,6 +491,12 @@
 </li>
         <li><a href="commands/plugins.html#cmdoption-plugins-uninstall-v">plugins-uninstall command line option</a>
 </li>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-v">pm-compile command line option</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-v">pm-install command line option</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-list-v">pm-list command line option</a>
+</li>
         <li><a href="commands/test.html#cmdoption-test-v">test command line option</a>
 </li>
       </ul></li>
@@ -442,6 +547,8 @@
       <li><a href="methoddocs/api.html#ape.api.networks.EcosystemAPI.__getattr__">__getattr__() (ape.api.networks.EcosystemAPI method)</a>
 
       <ul>
+        <li><a href="methoddocs/contracts.html#ape.contracts.base.ContractContainer.__getattr__">(ape.contracts.base.ContractContainer method)</a>
+</li>
         <li><a href="methoddocs/contracts.html#ape.contracts.base.ContractInstance.__getattr__">(ape.contracts.base.ContractInstance method)</a>
 </li>
         <li><a href="methoddocs/managers.html#ape.managers.project.manager.ProjectManager.__getattr__">(ape.managers.project.manager.ProjectManager method)</a>
@@ -976,6 +1083,8 @@
 </li>
       <li><a href="methoddocs/utils.html#ape.utils.GithubClient.ape_org">ape_org (ape.utils.GithubClient property)</a>
 </li>
+      <li><a href="methoddocs/exceptions.html#ape.exceptions.ApeAttributeError">ApeAttributeError</a>
+</li>
       <li><a href="methoddocs/cli.html#ape.cli.options.ApeCliContextObject">ApeCliContextObject (class in ape.cli.options)</a>
 </li>
       <li><a href="methoddocs/exceptions.html#ape.exceptions.ApeException">ApeException</a>
@@ -1088,6 +1197,8 @@
       </ul></li>
       <li><a href="methoddocs/contracts.html#ape.contracts.base.ContractInstance.call_view_method">call_view_method() (ape.contracts.base.ContractInstance method)</a>
 </li>
+      <li><a href="methoddocs/managers.html#ape.managers.compilers.CompilerManager.can_trace_source">can_trace_source() (ape.managers.compilers.CompilerManager method)</a>
+</li>
       <li><a href="methoddocs/ape.html#ape.chain">chain (in module ape)</a>
 </li>
       <li><a href="methoddocs/api.html#ape.api.networks.NetworkAPI.chain_id">chain_id (ape.api.networks.NetworkAPI property)</a>
@@ -1125,6 +1236,8 @@
 
       <ul>
         <li><a href="commands/compile.html#cmdoption-compile-f">--force</a>
+</li>
+        <li><a href="commands/compile.html#cmdoption-compile-include-dependencies">--include-dependencies</a>
 </li>
         <li><a href="commands/compile.html#cmdoption-compile-s">--size</a>
 </li>
@@ -1179,20 +1292,22 @@
 </li>
       <li><a href="methoddocs/plugins.html#ape.plugins.config.Config.config_class">config_class() (ape.plugins.config.Config method)</a>
 </li>
+      <li><a href="methoddocs/api.html#ape.api.projects.DependencyAPI.config_override">config_override (ape.api.projects.DependencyAPI attribute)</a>
+</li>
       <li><a href="methoddocs/api.html#ape.api.config.ConfigEnum">ConfigEnum (class in ape.api.config)</a>
 </li>
       <li><a href="methoddocs/exceptions.html#ape.exceptions.ConfigError">ConfigError</a>
 </li>
       <li><a href="methoddocs/managers.html#ape.managers.config.ConfigManager">ConfigManager (class in ape.managers.config)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="methoddocs/api.html#ape.api.providers.ProviderAPI.connect">connect() (ape.api.providers.ProviderAPI method)</a>
 
       <ul>
         <li><a href="methoddocs/api.html#ape.api.providers.SubprocessProvider.connect">(ape.api.providers.SubprocessProvider method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="methoddocs/api.html#ape.api.providers.UpstreamProvider.connection_str">connection_str (ape.api.providers.UpstreamProvider property)</a>
 </li>
       <li>
@@ -1593,6 +1708,8 @@
       </ul></li>
       <li><a href="methoddocs/api.html#ape.api.explorers.ExplorerAPI.get_contract_type">get_contract_type() (ape.api.explorers.ExplorerAPI method)</a>
 </li>
+      <li><a href="methoddocs/utils.html#ape.utils.get_current_timestamp_ms">get_current_timestamp_ms() (in module ape.utils)</a>
+</li>
       <li><a href="methoddocs/managers.html#ape.managers.chain.ContractCache.get_deployments">get_deployments() (ape.managers.chain.ContractCache method)</a>
 </li>
       <li><a href="methoddocs/managers.html#ape.managers.networks.NetworkManager.get_ecosystem">get_ecosystem() (ape.managers.networks.NetworkManager method)</a>
@@ -1738,6 +1855,8 @@
 </li>
       <li><a href="methoddocs/managers.html#ape.managers.chain.ContractCache.instance_at">instance_at() (ape.managers.chain.ContractCache method)</a>
 </li>
+      <li><a href="methoddocs/managers.html#ape.managers.chain.ContractCache.instance_from_receipt">instance_from_receipt() (ape.managers.chain.ContractCache method)</a>
+</li>
       <li><a href="methoddocs/managers.html#ape.managers.converters.IntAddressConverter">IntAddressConverter (class in ape.managers.converters)</a>
 </li>
       <li><a href="methoddocs/managers.html#ape.managers.project.manager.ProjectManager.interfaces_folder">interfaces_folder (ape.managers.project.manager.ProjectManager property)</a>
@@ -1780,6 +1899,8 @@
         <li><a href="methoddocs/managers.html#ape.managers.converters.TimestampConverter.is_convertible">(ape.managers.converters.TimestampConverter method)</a>
 </li>
       </ul></li>
+      <li><a href="methoddocs/utils.html#ape.utils.is_evm_precompile">is_evm_precompile() (in module ape.utils)</a>
+</li>
       <li><a href="methoddocs/utils.html#ape.utils.is_named_tuple">is_named_tuple() (in module ape.utils)</a>
 </li>
       <li><a href="methoddocs/utils.html#ape.utils.is_struct">is_struct() (in module ape.utils)</a>
@@ -1794,6 +1915,8 @@
         <li><a href="methoddocs/managers.html#ape.managers.project.types.BrownieProject.is_valid">(ape.managers.project.types.BrownieProject property)</a>
 </li>
       </ul></li>
+      <li><a href="methoddocs/utils.html#ape.utils.is_zero_hex">is_zero_hex() (in module ape.utils)</a>
+</li>
       <li><a href="methoddocs/managers.html#ape.managers.chain.ChainManager.isolate">isolate() (ape.managers.chain.ChainManager method)</a>
 </li>
       <li><a href="methoddocs/utils.html#ape.utils.Struct.items">items() (ape.utils.Struct method)</a>
@@ -1959,6 +2082,13 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    NAME
+
+      <ul>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-arg-NAME">pm-compile command line option</a>
+</li>
+      </ul></li>
       <li><a href="methoddocs/api.html#ape.api.networks.EcosystemAPI.name">name (ape.api.networks.EcosystemAPI attribute)</a>
 
       <ul>
@@ -1999,10 +2129,10 @@
 </li>
       <li><a href="methoddocs/cli.html#ape.cli.choices.NetworkChoice">NetworkChoice (class in ape.cli.choices)</a>
 </li>
-      <li><a href="methoddocs/exceptions.html#ape.exceptions.NetworkError">NetworkError</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="methoddocs/exceptions.html#ape.exceptions.NetworkError">NetworkError</a>
+</li>
       <li><a href="methoddocs/managers.html#ape.managers.networks.NetworkManager">NetworkManager (class in ape.managers.networks)</a>
 </li>
       <li><a href="methoddocs/exceptions.html#ape.exceptions.NetworkMismatchError">NetworkMismatchError</a>
@@ -2072,6 +2202,13 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    PACKAGE
+
+      <ul>
+        <li><a href="commands/pm.html#cmdoption-pm-install-arg-PACKAGE">pm-install command line option</a>
+</li>
+      </ul></li>
       <li><a href="methoddocs/managers.html#ape.managers.networks.NetworkManager.parse_network_choice">parse_network_choice() (ape.managers.networks.NetworkManager method)</a>
 </li>
       <li><a href="methoddocs/api.html#ape.api.projects.ProjectAPI.path">path (ape.api.projects.ProjectAPI attribute)</a>
@@ -2152,6 +2289,57 @@
       </ul></li>
       <li><a href="methoddocs/plugins.html#ape.plugins.pluggy_patch.PluginType">PluginType (class in ape.plugins.pluggy_patch)</a>
 </li>
+      <li>
+    pm-compile command line option
+
+      <ul>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-f">--force</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-v">--verbosity</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-version">--version</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-f">-f</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-v">-v</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-compile-arg-NAME">NAME</a>
+</li>
+      </ul></li>
+      <li>
+    pm-install command line option
+
+      <ul>
+        <li><a href="commands/pm.html#cmdoption-pm-install-f">--force</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-name">--name</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-ref">--ref</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-v">--verbosity</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-version">--version</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-f">-f</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-v">-v</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-install-arg-PACKAGE">PACKAGE</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    pm-list command line option
+
+      <ul>
+        <li><a href="commands/pm.html#cmdoption-pm-list-all">--all</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-list-v">--verbosity</a>
+</li>
+        <li><a href="commands/pm.html#cmdoption-pm-list-v">-v</a>
+</li>
+      </ul></li>
       <li><a href="methoddocs/managers.html#ape.managers.chain.BlockContainer.poll_blocks">poll_blocks() (ape.managers.chain.BlockContainer method)</a>
 </li>
       <li><a href="methoddocs/contracts.html#ape.contracts.base.ContractEvent.poll_logs">poll_logs() (ape.contracts.base.ContractEvent method)</a>
@@ -2164,8 +2352,6 @@
         <li><a href="methoddocs/api.html#ape.api.providers.Web3Provider.prepare_transaction">(ape.api.providers.Web3Provider method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="methoddocs/cli.html#ape.cli.choices.AccountAliasPromptChoice.print_choices">print_choices() (ape.cli.choices.AccountAliasPromptChoice method)</a>
 
       <ul>
@@ -2311,8 +2497,6 @@
 </li>
       <li><a href="methoddocs/api.html#ape.api.accounts.AccountContainerAPI.remove">remove() (ape.api.accounts.AccountContainerAPI method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="methoddocs/api.html#ape.api.networks.EcosystemAPI.request_header">request_header (ape.api.networks.EcosystemAPI attribute)</a>
 
       <ul>
@@ -2321,6 +2505,8 @@
         <li><a href="methoddocs/api.html#ape.api.providers.ProviderAPI.request_header">(ape.api.providers.ProviderAPI attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="methoddocs/api.html#ape.api.networks.NetworkAPI.required_confirmations">required_confirmations (ape.api.networks.NetworkAPI property)</a>
 </li>
       <li><a href="methoddocs/managers.html#ape.managers.chain.ChainManager.restore">restore() (ape.managers.chain.ChainManager method)</a>
@@ -2337,6 +2523,8 @@
         <li><a href="methoddocs/managers.html#ape.managers.chain.TransactionHistory.revert_to_block">(ape.managers.chain.TransactionHistory method)</a>
 </li>
       </ul></li>
+      <li><a href="methoddocs/ape.html#ape.reverts">reverts (in module ape)</a>
+</li>
       <li><a href="methoddocs/exceptions.html#ape.exceptions.RPCTimeoutError">RPCTimeoutError</a>
 </li>
       <li>
@@ -2505,10 +2693,10 @@
 </li>
       <li><a href="methoddocs/api.html#ape.api.transactions.ReceiptAPI.total_fees_paid">total_fees_paid (ape.api.transactions.ReceiptAPI property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="methoddocs/api.html#ape.api.transactions.TransactionAPI.total_transfer_value">total_transfer_value (ape.api.transactions.TransactionAPI property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="methoddocs/api.html#ape.api.transactions.ReceiptAPI.trace">trace (ape.api.transactions.ReceiptAPI property)</a>
 
       <ul>
@@ -2516,6 +2704,8 @@
 </li>
       </ul></li>
       <li><a href="methoddocs/utils.html#ape.utils.TraceStyles">TraceStyles (class in ape.utils)</a>
+</li>
+      <li><a href="methoddocs/api.html#ape.api.transactions.ReceiptAPI.track_coverage">track_coverage() (ape.api.transactions.ReceiptAPI method)</a>
 </li>
       <li><a href="methoddocs/managers.html#ape.managers.project.manager.ProjectManager.track_deployment">track_deployment() (ape.managers.project.manager.ProjectManager method)</a>
 </li>
