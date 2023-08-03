@@ -50,6 +50,8 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.6.15">v0.6.15</option>
+                <option value="v0.6.14">v0.6.14</option>
                 <option value="v0.6.13">v0.6.13</option>
                 <option value="v0.6.12">v0.6.12</option>
                 <option value="v0.6.11">v0.6.11</option>
@@ -131,6 +133,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguides/testing.html">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/scripts.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/publishing.html">Publishing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguides/logging.html">Logging</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">CLI Reference</span></p>
 <ul>
@@ -370,6 +373,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ape.api.providers.ProviderAPI.max_gas"><code class="docutils literal notranslate"><span class="pre">ProviderAPI.max_gas</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.api.providers.ProviderAPI.name"><code class="docutils literal notranslate"><span class="pre">ProviderAPI.name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.api.providers.ProviderAPI.network"><code class="docutils literal notranslate"><span class="pre">ProviderAPI.network</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ape.api.providers.ProviderAPI.network_choice"><code class="docutils literal notranslate"><span class="pre">ProviderAPI.network_choice</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.api.providers.ProviderAPI.prepare_transaction"><code class="docutils literal notranslate"><span class="pre">ProviderAPI.prepare_transaction()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.api.providers.ProviderAPI.priority_fee"><code class="docutils literal notranslate"><span class="pre">ProviderAPI.priority_fee</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.api.providers.ProviderAPI.provider_settings"><code class="docutils literal notranslate"><span class="pre">ProviderAPI.provider_settings</span></code></a></li>
@@ -2330,11 +2334,14 @@ Can be <code class="docutils literal notranslate"><span class="pre">&quot;latest
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ape.api.providers.ProviderAPI.get_code">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ChecksumAddress</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">HexBytes</span></span></span><a class="headerlink" href="#ape.api.providers.ProviderAPI.get_code" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ChecksumAddress</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">HexBytes</span></span></span><a class="headerlink" href="#ape.api.providers.ProviderAPI.get_code" title="Permalink to this definition"></a></dt>
 <dd><p>Get the bytes a contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>address</strong> (<code class="docutils literal notranslate"><span class="pre">AddressType</span></code>) – The address of the contract.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> (<code class="docutils literal notranslate"><span class="pre">AddressType</span></code>) – The address of the contract.</p></li>
+<li><p><strong>**kwargs</strong> – Additional, provider-specific kwargs.</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The contract bytecode.</p>
@@ -2454,6 +2461,12 @@ topic filters. Defaults to getting all events.</p>
 <dt class="sig sig-object py" id="ape.api.providers.ProviderAPI.network">
 <span class="sig-name descname"><span class="pre">network</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#ape.api.networks.NetworkAPI" title="ape.api.networks.NetworkAPI"><span class="pre">NetworkAPI</span></a></em><a class="headerlink" href="#ape.api.providers.ProviderAPI.network" title="Permalink to this definition"></a></dt>
 <dd><p>A reference to the network this provider provides.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ape.api.providers.ProviderAPI.network_choice">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">network_choice</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ape.api.providers.ProviderAPI.network_choice" title="Permalink to this definition"></a></dt>
+<dd><p>The connected network choice string.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2740,8 +2753,9 @@ See <a class="reference external" href="https://chainlist.org/">ChainList</a> fo
 <li><p><strong>txn</strong> (<a class="reference internal" href="#ape.api.transactions.TransactionAPI" title="ape.api.transactions.TransactionAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionAPI</span></code></a>) – The transaction to estimate the gas for.</p></li>
 <li><p><strong>kwargs</strong> – <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">block_identifier</span></code> (<a class="reference internal" href="types.html#ape.types.BlockID" title="ape.types.BlockID"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockID</span></code></a>): The block ID
-to use when estimating the transaction. Useful for
-checking a past estimation cost of a transaction.</p></li>
+to use when estimating the transaction. Useful for checking a
+past estimation cost of a transaction. Also, you can alias
+<code class="docutils literal notranslate"><span class="pre">block_id</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">state_overrides</span></code> (Dict): Modify the state of the blockchain
 prior to estimation.</p></li>
 </ul>
@@ -2809,11 +2823,19 @@ Can be <code class="docutils literal notranslate"><span class="pre">&quot;latest
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ape.api.providers.Web3Provider.get_code">
-<span class="sig-name descname"><span class="pre">get_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ChecksumAddress</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">HexBytes</span></span></span><a class="headerlink" href="#ape.api.providers.Web3Provider.get_code" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ChecksumAddress</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">HexBytes</span></span></span><a class="headerlink" href="#ape.api.providers.Web3Provider.get_code" title="Permalink to this definition"></a></dt>
 <dd><p>Get the bytes a contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>address</strong> (<code class="docutils literal notranslate"><span class="pre">AddressType</span></code>) – The address of the contract.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> (<code class="docutils literal notranslate"><span class="pre">AddressType</span></code>) – The address of the contract.</p></li>
+<li><p><strong>kwargs</strong> – <ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">block_identifier</span></code> (<a class="reference internal" href="types.html#ape.types.BlockID" title="ape.types.BlockID"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockID</span></code></a>): The block ID
+for checking a previous account nonce. Also, you can use
+alias <code class="docutils literal notranslate"><span class="pre">block_id</span></code>.</p></li>
+</ul>
+</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The contract bytecode.</p>
@@ -2849,7 +2871,8 @@ topic filters. Defaults to getting all events.</p>
 <li><p><strong>address</strong> (<em>AddressType</em>) – The address of the account.</p></li>
 <li><p><strong>kwargs</strong> – <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">block_identifier</span></code> (<a class="reference internal" href="types.html#ape.types.BlockID" title="ape.types.BlockID"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockID</span></code></a>): The block ID
-for checking a previous account nonce.</p></li>
+for checking a previous account nonce. Also, you can use alias
+<code class="docutils literal notranslate"><span class="pre">block_id</span></code>.</p></li>
 </ul>
 </p></li>
 </ul>
@@ -2898,7 +2921,8 @@ before timing out. Defaults <code class="docutils literal notranslate"><span cla
 <li><p><strong>slot</strong> (<em>int</em>) – Storage slot to read the value of.</p></li>
 <li><p><strong>kwargs</strong> – <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">block_identifier</span></code> (<a class="reference internal" href="types.html#ape.types.BlockID" title="ape.types.BlockID"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockID</span></code></a>): The block ID
-for checking previous contract storage values.</p></li>
+for checking previous contract storage values. Also, you can use
+alias <code class="docutils literal notranslate"><span class="pre">block_id</span></code>.</p></li>
 </ul>
 </p></li>
 </ul>
@@ -3007,7 +3031,8 @@ transaction on the block chain.</p>
 <li><p><strong>txn</strong> – <a class="reference internal" href="#ape.api.transactions.TransactionAPI" title="ape.api.transactions.TransactionAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">TransactionAPI</span></code></a></p></li>
 <li><p><strong>kwargs</strong> – <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">block_identifier</span></code> (<a class="reference internal" href="types.html#ape.types.BlockID" title="ape.types.BlockID"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlockID</span></code></a>): The block ID
-to use to send a call at a historical point of a contract.
+to use to send a call at a historical point of a contract. Also,
+you can us alias <code class="docutils literal notranslate"><span class="pre">block_id</span></code>.
 checking a past estimation cost of a transaction.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">state_overrides</span></code> (Dict): Modify the state of the blockchain
 prior to sending the call, for testing purposes.</p></li>
@@ -3207,8 +3232,7 @@ such as typed-transactions from <a class="reference external" href="https://eips
 <dl class="py property">
 <dt class="sig sig-object py" id="ape.api.transactions.TransactionAPI.receipt">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">receipt</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#ape.api.transactions.ReceiptAPI" title="ape.api.transactions.ReceiptAPI"><span class="pre">ReceiptAPI</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ape.api.transactions.TransactionAPI.receipt" title="Permalink to this definition"></a></dt>
-<dd><p>This transaction’s associated published receipt,
-if it exists.</p>
+<dd><p>This transaction’s associated published receipt, if it exists.</p>
 </dd></dl>
 
 <dl class="py method">

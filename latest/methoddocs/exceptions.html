@@ -50,6 +50,8 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.6.15">v0.6.15</option>
+                <option value="v0.6.14">v0.6.14</option>
                 <option value="v0.6.13">v0.6.13</option>
                 <option value="v0.6.12">v0.6.12</option>
                 <option value="v0.6.11">v0.6.11</option>
@@ -131,6 +133,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguides/testing.html">Testing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/scripts.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/publishing.html">Publishing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguides/logging.html">Logging</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">CLI Reference</span></p>
 <ul>
@@ -171,6 +174,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#ape.exceptions.ContractLogicError.from_error"><code class="docutils literal notranslate"><span class="pre">ContractLogicError.from_error()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#ape.exceptions.ContractNotFoundError"><code class="docutils literal notranslate"><span class="pre">ContractNotFoundError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ape.exceptions.ConversionError"><code class="docutils literal notranslate"><span class="pre">ConversionError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ape.exceptions.CustomError"><code class="docutils literal notranslate"><span class="pre">CustomError</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ape.exceptions.CustomError.name"><code class="docutils literal notranslate"><span class="pre">CustomError.name</span></code></a></li>
@@ -348,6 +352,13 @@ error.</p>
 provider-specific use-cases for raising this error.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ape.exceptions.ContractNotFoundError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ape.exceptions.</span></span><span class="sig-name descname"><span class="pre">ContractNotFoundError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AddressType</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">has_explorer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provider_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ape.exceptions.ContractNotFoundError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ape.exceptions.ChainError" title="ape.exceptions.ChainError"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChainError</span></code></a></p>
+<p>Raised when a contract is not found at an address.</p>
 </dd></dl>
 
 <dl class="py exception">
