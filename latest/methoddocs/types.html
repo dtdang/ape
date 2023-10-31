@@ -50,6 +50,13 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.6.22">v0.6.22</option>
+                <option value="v0.6.21">v0.6.21</option>
+                <option value="v0.6.20">v0.6.20</option>
+                <option value="v0.6.19">v0.6.19</option>
+                <option value="v0.6.18">v0.6.18</option>
+                <option value="v0.6.17">v0.6.17</option>
+                <option value="v0.6.16">v0.6.16</option>
                 <option value="v0.6.15">v0.6.15</option>
                 <option value="v0.6.14">v0.6.14</option>
                 <option value="v0.6.13">v0.6.13</option>
@@ -169,6 +176,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ape.types.ContractLog.block_hash"><code class="docutils literal notranslate"><span class="pre">ContractLog.block_hash</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.types.ContractLog.block_number"><code class="docutils literal notranslate"><span class="pre">ContractLog.block_number</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.types.ContractLog.log_index"><code class="docutils literal notranslate"><span class="pre">ContractLog.log_index</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ape.types.ContractLog.timestamp"><code class="docutils literal notranslate"><span class="pre">ContractLog.timestamp</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.types.ContractLog.transaction_hash"><code class="docutils literal notranslate"><span class="pre">ContractLog.transaction_hash</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.types.ContractLog.transaction_index"><code class="docutils literal notranslate"><span class="pre">ContractLog.transaction_index</span></code></a></li>
 </ul>
@@ -274,6 +282,13 @@ as well as a block number or hash (HexBytes).</p>
 <dd><p>The index of the log on the transaction.</p>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="ape.types.ContractLog.timestamp">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">timestamp</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#ape.types.ContractLog.timestamp" title="Permalink to this definition"></a></dt>
+<dd><p>The UNIX timestamp of when the event was emitted.</p>
+<p>NOTE: This performs a block lookup.</p>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ape.types.ContractLog.transaction_hash">
 <span class="sig-name descname"><span class="pre">transaction_hash</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Any</span></em><a class="headerlink" href="#ape.types.ContractLog.transaction_hash" title="Permalink to this definition"></a></dt>
@@ -314,8 +329,8 @@ of event arguments between a MockContractLog and a ContractLog instance.</p>
 <dt class="sig sig-object py" id="ape.types.signatures.SignableMessage">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ape.types.signatures.</span></span><span class="sig-name descname"><span class="pre">SignableMessage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ape.types.signatures.SignableMessage" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">NamedTuple</span></code></p>
-<p>A message compatible with <a href="#id1"><span class="problematic" id="id2">EIP-191_</span></a> that is ready to be signed.</p>
-<p>The properties are components of an <a href="#id3"><span class="problematic" id="id4">EIP-191_</span></a> signable message. Other message formats
+<p>A message compatible with <a class="reference external" href="https://eips.ethereum.org/EIPS/eip-191">EIP-191</a> that is ready to be signed.</p>
+<p>The properties are components of an <a class="reference external" href="https://eips.ethereum.org/EIPS/eip-191">EIP-191</a> signable message. Other message formats
 can be encoded into this format for easy signing. This data structure doesn’t need
 to know about the original message format. For example, you can think of
 EIP-712 as compiling down to an EIP-191 message.</p>

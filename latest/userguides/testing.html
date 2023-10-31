@@ -50,6 +50,13 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.6.22">v0.6.22</option>
+                <option value="v0.6.21">v0.6.21</option>
+                <option value="v0.6.20">v0.6.20</option>
+                <option value="v0.6.19">v0.6.19</option>
+                <option value="v0.6.18">v0.6.18</option>
+                <option value="v0.6.17">v0.6.17</option>
+                <option value="v0.6.16">v0.6.16</option>
                 <option value="v0.6.15">v0.6.15</option>
                 <option value="v0.6.14">v0.6.14</option>
                 <option value="v0.6.13">v0.6.13</option>
@@ -259,13 +266,11 @@ To disable isolation add the <code class="docutils literal notranslate"><span cl
 </section>
 <section id="fixtures">
 <h2>Fixtures<a class="headerlink" href="#fixtures" title="Permalink to this heading"></a></h2>
-<p>Fixtures are any type of reusable instances of something with configurable scopes. <code class="docutils literal notranslate"><span class="pre">pytest</span></code> handles passing fixtures
-into each test method as test-time. To learn more about <a class="reference external" href="https://docs.pytest.org/en/7.1.x/explanation/fixtures.html">fixtures</a></p>
-<p>Define fixtures for static data used by tests. This data can be accessed by all tests in the suite unless specified otherwise. This could be data as well as helpers of modules which will be passed to all tests.</p>
-<p>A common place to define fixtures are in the <strong>conftest.py</strong> which should be saved under the test directory:</p>
-<p>conftest.py is used to import external plugins or modules. By defining the following global variable, pytest will load the module and make it available for its test.</p>
-<p>You can define your own fixtures or use existing ones. The <code class="docutils literal notranslate"><span class="pre">ape-test</span></code> plugin comes
-with fixtures you will likely want to use:</p>
+<p>You can define and use <code class="docutils literal notranslate"><span class="pre">pytest</span></code> fixtures in your Ape tests.
+Learn more about fixtures from <a class="reference external" href="https://docs.pytest.org/en/7.1.x/explanation/fixtures.html">this guide</a>.
+The syntax and functionalities of fixtures work exactly the same in Ape as it does with <code class="docutils literal notranslate"><span class="pre">pytest</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ape-test</span></code> plugin comes with fixtures you will likely want to use.
+The following guide explains each fixture that comes with Ape.</p>
 <section id="accounts-fixture">
 <h3>accounts fixture<a class="headerlink" href="#accounts-fixture" title="Permalink to this heading"></a></h3>
 <p>You have access to test accounts.
@@ -297,6 +302,13 @@ Access each <a class="reference external" href="../methoddocs/api.html?highlight
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">test</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">mnemonic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test test test test test test test test test test test junk</span>
 <span class="w">  </span><span class="nt">number_of_accounts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+</pre></div>
+</div>
+<p>If you are running tests against <code class="docutils literal notranslate"><span class="pre">anvil</span></code>, your generated test accounts may not correspond to the <code class="docutils literal notranslate"><span class="pre">anvil</span></code>’s default generated accounts despite using the same mnemonic. In such a case, you are able to specify a custom derivation path in <code class="docutils literal notranslate"><span class="pre">ape-config.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">test</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mnemonic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test test test test test test test test test test test junk</span>
+<span class="w">  </span><span class="nt">number_of_accounts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">  </span><span class="nt">hd_path</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;m/44&#39;/60&#39;/0&#39;/0/{}&quot;</span>
 </pre></div>
 </div>
 <p>If you are using a fork-provider, such as <a class="reference external" href="https://github.com/ApeWorX/ape-hardhat">Hardhat</a>, you can use impersonated accounts by accessing random addresses off the fixture:</p>

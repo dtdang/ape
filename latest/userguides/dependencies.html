@@ -50,6 +50,13 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.6.22">v0.6.22</option>
+                <option value="v0.6.21">v0.6.21</option>
+                <option value="v0.6.20">v0.6.20</option>
+                <option value="v0.6.19">v0.6.19</option>
+                <option value="v0.6.18">v0.6.18</option>
+                <option value="v0.6.17">v0.6.17</option>
+                <option value="v0.6.16">v0.6.16</option>
                 <option value="v0.6.15">v0.6.15</option>
                 <option value="v0.6.14">v0.6.14</option>
                 <option value="v0.6.13">v0.6.13</option>
@@ -129,6 +136,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#package-management-cli">Package Management CLI</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#list">list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#install">install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#remove">remove</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#compile">compile</a></li>
 </ul>
 </li>
@@ -259,6 +267,14 @@ Bypass the original failing attempt by including a <code class="docutils literal
 <li><p>When there is not a suitable <code class="docutils literal notranslate"><span class="pre">DependencyAPI</span></code> implementation available for downloading your dependency.</p></li>
 <li><p>Testing the framework.</p></li>
 </ul>
+<p>You can also reference local project manifests and use those as dependencies.
+To do this, use a local value pointing to the manifest file, like this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyDependency</span>
+<span class="w">    </span><span class="nt">local</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./my-dependency.json</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
+</pre></div>
+</div>
 </section>
 <section id="npm">
 <h3>NPM<a class="headerlink" href="#npm" title="Permalink to this heading"></a></h3>
@@ -315,6 +331,23 @@ Then, add the following to your config so that Ape can find the dependency:</p>
 For <code class="docutils literal notranslate"><span class="pre">npm</span></code> dependencies, you use an <code class="docutils literal notranslate"><span class="pre">npm:</span></code> prefix.
 For local dependencies, you give it a path to the local dependency.
 <code class="docutils literal notranslate"><span class="pre">--version</span></code> is not required when using a local dependency.</p>
+</section>
+<section id="remove">
+<h3>remove<a class="headerlink" href="#remove" title="Permalink to this heading"></a></h3>
+<p>Remove previously installed packages using the <code class="docutils literal notranslate"><span class="pre">remove</span></code> command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ape<span class="w"> </span>pm<span class="w"> </span>remove<span class="w"> </span>OpenZeppelin
+</pre></div>
+</div>
+<p>If there is a single version installed, the command will remove the single version.
+If multiple versions are installed, pass additional arguments specifying the version(s) to be removed:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ape<span class="w"> </span>pm<span class="w"> </span>remove<span class="w"> </span>OpenZeppelin<span class="w"> </span><span class="m">4</span>.5.0<span class="w"> </span><span class="m">4</span>.6.0
+</pre></div>
+</div>
+<p>To skip the confirmation prompts, use the <code class="docutils literal notranslate"><span class="pre">--yes</span></code> flag (abbreviated as <code class="docutils literal notranslate"><span class="pre">-y</span></code>):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ape<span class="w"> </span>pm<span class="w"> </span>remove<span class="w"> </span>OpenZeppelin<span class="w"> </span>all<span class="w"> </span>--yes
+</pre></div>
+</div>
+<p><strong>NOTE</strong>: Additionally, use the <code class="docutils literal notranslate"><span class="pre">all</span></code> special version key to delete all versions.</p>
 </section>
 <section id="compile">
 <h3>compile<a class="headerlink" href="#compile" title="Permalink to this heading"></a></h3>
