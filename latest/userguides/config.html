@@ -50,6 +50,19 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.7.7">v0.7.7</option>
+                <option value="v0.7.6">v0.7.6</option>
+                <option value="v0.7.5">v0.7.5</option>
+                <option value="v0.7.4">v0.7.4</option>
+                <option value="v0.7.3">v0.7.3</option>
+                <option value="v0.7.2">v0.7.2</option>
+                <option value="v0.7.1">v0.7.1</option>
+                <option value="v0.7.0">v0.7.0</option>
+                <option value="v0.6.27">v0.6.27</option>
+                <option value="v0.6.26">v0.6.26</option>
+                <option value="v0.6.25">v0.6.25</option>
+                <option value="v0.6.24">v0.6.24</option>
+                <option value="v0.6.23">v0.6.23</option>
                 <option value="v0.6.22">v0.6.22</option>
                 <option value="v0.6.21">v0.6.21</option>
                 <option value="v0.6.20">v0.6.20</option>
@@ -131,6 +144,7 @@
 <li class="toctree-l1"><a class="reference internal" href="clis.html">CLIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">Querying Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forking_networks.html">Forking Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developing_plugins.html">Developing Plugins</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configure Ape</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#contracts-folder">Contracts Folder</a></li>
@@ -167,6 +181,7 @@
 <p class="caption" role="heading"><span class="caption-text">Python Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape.html">ape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_accounts.html">ape-accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/api.html">ape.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/cli.html">ape.cli</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/contracts.html">ape.contracts</a></li>
@@ -193,7 +208,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Configure Ape</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/userguides/config.md.txt" rel="nofollow"> View page source</a>
+              <a href="https://github.com/ApeWorX/ape/blob/main/docs/userguides/config.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -210,7 +225,15 @@ There are two locations you can place an <code class="docutils literal notransla
 <li><p>In your <code class="docutils literal notranslate"><span class="pre">$HOME/.ape</span></code> directory (global)</p></li>
 </ol>
 <p>Project settings take precedent, but global settings allow you to configure preferences across all projects, such as your default mainnet provider (e.g. Alchemy versus running your own node).</p>
-<p>This guide serves as an index of the settings you can include in any <code class="docutils literal notranslate"><span class="pre">ape-config.yaml</span></code> file.</p>
+<p>This guide serves as an index of the settings you can include in any <code class="docutils literal notranslate"><span class="pre">ape-config.yaml</span></code> file.
+This guide is <strong>PURPOSELY</strong> alphabetized to facilitate easier look-up of keys.</p>
+<p>Most of the features in this guide are documented more-fully elsewhere in the user-guides.</p>
+<p>However, here is a list of common-use cases requiring the <code class="docutils literal notranslate"><span class="pre">ape-config.yaml</span></code> file to help you:</p>
+<ol class="arabic simple">
+<li><p>Setting up a custom node RPC: See the <a class="reference external" href="#geth">geth</a> section.</p></li>
+<li><p>Setting up project dependencies: See the <a class="reference external" href="#dependencies">dependencies</a> section.</p></li>
+<li><p>Declaring your project’s plugins: See the <a class="reference external" href="#plugins">plugins</a> section.</p></li>
+</ol>
 <section id="contracts-folder">
 <h2>Contracts Folder<a class="headerlink" href="#contracts-folder" title="Permalink to this heading"></a></h2>
 <p>Specify a different path to your <code class="docutils literal notranslate"><span class="pre">contracts/</span></code> directory.
@@ -246,17 +269,26 @@ To learn more about dependencies, see <a class="reference external" href="./depe
 </section>
 <section id="deployments">
 <h2>Deployments<a class="headerlink" href="#deployments" title="Permalink to this heading"></a></h2>
-<p>Share import deployments to public networks with your teammates:</p>
+<p>Set deployments that were made outside of Ape in your <code class="docutils literal notranslate"><span class="pre">ape-config.yaml</span></code> to create past-deployment-based contract instances in Ape:
+(See <a class="reference external" href="./contracts.html#from-previous-deployment">this example</a> for more information on this feature).</p>
+<p>Config example:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">deployments</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">ethereum</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">mainnet</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">contract_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyContract</span>
-<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xc123aAacCcbBbaAa444777000111222111222111</span>
-<span class="w">    </span><span class="nt">ropsten</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0x5FbDB2315678afecb367f032d93F642f64180aa3</span>
+<span class="w">    </span><span class="nt">goerli</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">contract_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MyContract</span>
-<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xc222000cCcbBbaAa444777000111222111222222</span>
+<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512</span>
 </pre></div>
 </div>
+<p>When connected to Ethereum mainnet, reference the deployment by doing:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ape</span> <span class="kn">import</span> <span class="n">project</span>
+
+<span class="n">contract</span> <span class="o">=</span> <span class="n">project</span><span class="o">.</span><span class="n">MyContract</span><span class="o">.</span><span class="n">deployments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>NOTE</strong>: Ape does not add or edit deployments in your <code class="docutils literal notranslate"><span class="pre">ape-config.yaml</span></code> file.</p>
 </section>
 <section id="geth">
 <h2>Geth<a class="headerlink" href="#geth" title="Permalink to this heading"></a></h2>
@@ -268,6 +300,9 @@ For example, to change the URI for an Ethereum network, do:</p>
 <span class="w">      </span><span class="nt">uri</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:5030</span>
 </pre></div>
 </div>
+<p>Now, the <code class="docutils literal notranslate"><span class="pre">ape-geth</span></code> core plugin will use the URL <code class="docutils literal notranslate"><span class="pre">http://localhost:5030</span></code> to connect and make requests.</p>
+<p><strong>WARN</strong>: Instead of using <code class="docutils literal notranslate"><span class="pre">ape-geth</span></code> to connect to an Infura or Alchemy node, use the <a class="reference external" href="https://github.com/ApeWorX/ape-infura">ape-infura</a> or <a class="reference external" href="https://github.com/ApeWorX/ape-alchemy">ape-alchemy</a> provider plugins instead, which have their own way of managing API keys via environment variables.</p>
+<p>For more information on networking as a whole, see <a class="reference external" href="./networks.html">this guide</a>.</p>
 </section>
 <section id="networks">
 <h2>Networks<a class="headerlink" href="#networks" title="Permalink to this heading"></a></h2>
@@ -313,7 +348,7 @@ For example, to change the URI for an Ethereum network, do:</p>
 </pre></div>
 </div>
 <p>Install these plugins by running command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ape<span class="w"> </span>plugins<span class="w"> </span>install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ape<span class="w"> </span>plugins<span class="w"> </span>install<span class="w"> </span>.
 </pre></div>
 </div>
 </section>
@@ -357,6 +392,12 @@ For example, to change the URI for an Ethereum network, do:</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
+
+  
+      <li><a href="https://github.com/ApeWorX/ape
+      /blob/main//docs/userguides/config.rst">
+      Show on GitHub</a></li>
+  
 
 </body>
 </html>

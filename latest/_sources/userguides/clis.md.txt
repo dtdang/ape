@@ -63,28 +63,60 @@ def cli(cli_ctx):
 
 ## Network Tools
 
-The [@network_option()](../methoddocs/cli.html#ape.cli.options.network_option) allows you to select an ecosystem / network / provider combination.
-When using with the [NetworkBoundCommand](../methoddocs/cli.html#ape.cli.commands.NetworkBoundCommand) class, you can cause your CLI to connect before any of your code executes.
-This is useful if your script or command requires a provider connection in order for it to run.
+The [@network_option()](../methoddocs/cli.html#ape.cli.options.network_option) allows you to select an ecosystem, network, and provider.
+To specify the network option, use values like:
+
+```shell
+--network ethereum
+--network ethereum:sepolia
+--network ethereum:mainnet:alchemy
+--network ::foundry
+```
+
+To use default values automatically, omit sections of the choice, but leave the semi-colons for parsing.
+For example, `::test` means use the default ecosystem and network and the `test` provider.
+
+Use `ecosystem`, `network`, and `provider` argument names in your command implementation to access their corresponding class instances:
 
 ```python
 import click
-from ape import networks
-from ape.cli import network_option, NetworkBoundCommand
-
+from ape.cli import network_option
 
 @click.command()
 @network_option()
-def cmd(network):
-    # Choices like "ethereum" or "polygon:local:test".
-    click.echo(network)
+def cmd(provider):
+   # This command only needs the provider.
+   click.echo(provider.name)
 
-
-@click.command(cls=NetworkBoundCommand)
+@click.command()
 @network_option()
-def cmd(network):
-    # Fails if we are not connected.
-    click.echo(networks.provider.network.name)
+def cmd_2(ecosystem, network, provider):
+   # This command uses all parts of the parsed network choice.
+   click.echo(ecosystem.name)
+   click.echo(network.name)
+   click.echo(provider.name)
+```
+
+The [ConnectedProviderCommand](../methoddocs/cli.html#ape.cli.commands.ConnectedProviderCommand) automatically uses the `--network` option and connects to the network before any of your code executes and then disconnects afterward.
+This is useful if your script or command requires a provider connection in order for it to run.
+Additionally, specify `ecosystem`, `network`, or `provider` in your command function if you need any of those instances in your `ConnectedProviderCommand`, just like when using `network_option`.
+
+```python
+import click
+from ape.cli import ConnectedProviderCommand
+
+@click.command(cls=ConnectedProviderCommand)
+def cmd(network, provider):
+   click.echo(network.name)
+   click.echo(provider.is_connected)  # True
+
+@click.command(cls=ConnectedProviderCommand)
+def cmd(provider):
+   click.echo(provider.is_connected)  # True
+
+@click.command(cls=ConnectedProviderCommand)
+def cmd():
+   click.echo("Using params from ConnectedProviderCommand is optional")
 ```
 
 ## Account Tools
@@ -127,13 +159,13 @@ Alternatively, you can call the [get_user_selected_account()](../methoddocs/cli.
 
 ```python
 import click
-from ape.cli import get_user_selected_account
+from ape.cli import select_account
 
 
 @click.command()
 def cmd():
-    account = get_user_selected_account("Select an account to use")
-    click.echo(f"You selected {account.address}.")
+   account = select_account("Select an account to use")
+   click.echo(f"You selected {account.address}.")
 ```
 
 Similarly, there are a couple custom arguments for aliases alone that are useful when making CLIs for account creation.
@@ -157,4 +189,32 @@ def delete_account(alias):
 def create_account(alias):
     # We know the alias is not yet used in Ape at this point.
     click.echo(alias)
+```
+
+You can control additional filtering of the accounts by using the `account_type` kwarg.
+Use `account_type` to filter the choices by specific types of [AccountAPI](../methoddocs/api.html#ape.api.accounts.AccountAPI), or you can give it a list of already known accounts, or you can provide a callable-filter that takes an account and returns a boolean.
+
+```python
+import click
+from ape import accounts
+from ape.cli import existing_alias_argument, get_user_selected_account
+from ape_accounts.accounts import KeyfileAccount
+
+# NOTE: This is just an example and not anything specific or recommended.
+APPLICATION_PREFIX = "<FOO_BAR>"
+
+@click.command()
+@existing_alias_argument(account_type=KeyfileAccount)
+def cli_0(alias):
+   pass
+   
+@click.command()
+@existing_alias_argument(account_type=lambda a: a.alias.startswith(APPLICATION_PREFIX))
+def cli_1(alias):
+   pass
+    
+   
+# Select from the given accounts directly.
+my_accounts = [accounts.load("me"), accounts.load("me2")]
+selected_account = get_user_selected_account(account_type=my_accounts)
 ```

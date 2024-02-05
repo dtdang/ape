@@ -50,6 +50,19 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.7.7">v0.7.7</option>
+                <option value="v0.7.6">v0.7.6</option>
+                <option value="v0.7.5">v0.7.5</option>
+                <option value="v0.7.4">v0.7.4</option>
+                <option value="v0.7.3">v0.7.3</option>
+                <option value="v0.7.2">v0.7.2</option>
+                <option value="v0.7.1">v0.7.1</option>
+                <option value="v0.7.0">v0.7.0</option>
+                <option value="v0.6.27">v0.6.27</option>
+                <option value="v0.6.26">v0.6.26</option>
+                <option value="v0.6.25">v0.6.25</option>
+                <option value="v0.6.24">v0.6.24</option>
+                <option value="v0.6.23">v0.6.23</option>
                 <option value="v0.6.22">v0.6.22</option>
                 <option value="v0.6.21">v0.6.21</option>
                 <option value="v0.6.20">v0.6.20</option>
@@ -136,6 +149,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">Querying Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forking_networks.html">Forking Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developing_plugins.html">Developing Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configure Ape</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transactions.html">Making Transactions</a></li>
@@ -162,6 +176,7 @@
 <p class="caption" role="heading"><span class="caption-text">Python Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape.html">ape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_accounts.html">ape-accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/api.html">ape.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/cli.html">ape.cli</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/contracts.html">ape.contracts</a></li>
@@ -188,7 +203,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">CLIs</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/userguides/clis.md.txt" rel="nofollow"> View page source</a>
+              <a href="https://github.com/ApeWorX/ape/blob/main/docs/userguides/clis.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -254,26 +269,53 @@ Here is an example using all of those features from the <code class="docutils li
 </section>
 <section id="network-tools">
 <h2>Network Tools<a class="headerlink" href="#network-tools" title="Permalink to this heading"></a></h2>
-<p>The <a class="reference external" href="../methoddocs/cli.html#ape.cli.options.network_option">&#64;network_option()</a> allows you to select an ecosystem / network / provider combination.
-When using with the <a class="reference external" href="../methoddocs/cli.html#ape.cli.commands.NetworkBoundCommand">NetworkBoundCommand</a> class, you can cause your CLI to connect before any of your code executes.
-This is useful if your script or command requires a provider connection in order for it to run.</p>
+<p>The <a class="reference external" href="../methoddocs/cli.html#ape.cli.options.network_option">&#64;network_option()</a> allows you to select an ecosystem, network, and provider.
+To specify the network option, use values like:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>--network<span class="w"> </span>ethereum
+--network<span class="w"> </span>ethereum:sepolia
+--network<span class="w"> </span>ethereum:mainnet:alchemy
+--network<span class="w"> </span>::foundry
+</pre></div>
+</div>
+<p>To use default values automatically, omit sections of the choice, but leave the semi-colons for parsing.
+For example, <code class="docutils literal notranslate"><span class="pre">::test</span></code> means use the default ecosystem and network and the <code class="docutils literal notranslate"><span class="pre">test</span></code> provider.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">ecosystem</span></code>, <code class="docutils literal notranslate"><span class="pre">network</span></code>, and <code class="docutils literal notranslate"><span class="pre">provider</span></code> argument names in your command implementation to access their corresponding class instances:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">click</span>
-<span class="kn">from</span> <span class="nn">ape</span> <span class="kn">import</span> <span class="n">networks</span>
-<span class="kn">from</span> <span class="nn">ape.cli</span> <span class="kn">import</span> <span class="n">network_option</span><span class="p">,</span> <span class="n">NetworkBoundCommand</span>
-
+<span class="kn">from</span> <span class="nn">ape.cli</span> <span class="kn">import</span> <span class="n">network_option</span>
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
 <span class="nd">@network_option</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">cmd</span><span class="p">(</span><span class="n">network</span><span class="p">):</span>
-    <span class="c1"># Choices like &quot;ethereum&quot; or &quot;polygon:local:test&quot;.</span>
-    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">network</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cmd</span><span class="p">(</span><span class="n">provider</span><span class="p">):</span>
+   <span class="c1"># This command only needs the provider.</span>
+   <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">provider</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
-
-<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="n">NetworkBoundCommand</span><span class="p">)</span>
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
 <span class="nd">@network_option</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">cmd</span><span class="p">(</span><span class="n">network</span><span class="p">):</span>
-    <span class="c1"># Fails if we are not connected.</span>
-    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">networks</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cmd_2</span><span class="p">(</span><span class="n">ecosystem</span><span class="p">,</span> <span class="n">network</span><span class="p">,</span> <span class="n">provider</span><span class="p">):</span>
+   <span class="c1"># This command uses all parts of the parsed network choice.</span>
+   <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">ecosystem</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+   <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+   <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">provider</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <a class="reference external" href="../methoddocs/cli.html#ape.cli.commands.ConnectedProviderCommand">ConnectedProviderCommand</a> automatically uses the <code class="docutils literal notranslate"><span class="pre">--network</span></code> option and connects to the network before any of your code executes and then disconnects afterward.
+This is useful if your script or command requires a provider connection in order for it to run.
+Additionally, specify <code class="docutils literal notranslate"><span class="pre">ecosystem</span></code>, <code class="docutils literal notranslate"><span class="pre">network</span></code>, or <code class="docutils literal notranslate"><span class="pre">provider</span></code> in your command function if you need any of those instances in your <code class="docutils literal notranslate"><span class="pre">ConnectedProviderCommand</span></code>, just like when using <code class="docutils literal notranslate"><span class="pre">network_option</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">from</span> <span class="nn">ape.cli</span> <span class="kn">import</span> <span class="n">ConnectedProviderCommand</span>
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="n">ConnectedProviderCommand</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cmd</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="n">provider</span><span class="p">):</span>
+   <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+   <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">provider</span><span class="o">.</span><span class="n">is_connected</span><span class="p">)</span>  <span class="c1"># True</span>
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="n">ConnectedProviderCommand</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cmd</span><span class="p">(</span><span class="n">provider</span><span class="p">):</span>
+   <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">provider</span><span class="o">.</span><span class="n">is_connected</span><span class="p">)</span>  <span class="c1"># True</span>
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="n">ConnectedProviderCommand</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cmd</span><span class="p">():</span>
+   <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="s2">&quot;Using params from ConnectedProviderCommand is optional&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -311,13 +353,13 @@ Here is an example:</p>
 </div>
 <p>Alternatively, you can call the <a class="reference external" href="../methoddocs/cli.html#ape.cli.choices.get_user_selected_account">get_user_selected_account()</a> directly to have more control of when the account gets selected:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">click</span>
-<span class="kn">from</span> <span class="nn">ape.cli</span> <span class="kn">import</span> <span class="n">get_user_selected_account</span>
+<span class="kn">from</span> <span class="nn">ape.cli</span> <span class="kn">import</span> <span class="n">select_account</span>
 
 
 <span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">cmd</span><span class="p">():</span>
-    <span class="n">account</span> <span class="o">=</span> <span class="n">get_user_selected_account</span><span class="p">(</span><span class="s2">&quot;Select an account to use&quot;</span><span class="p">)</span>
-    <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;You selected </span><span class="si">{</span><span class="n">account</span><span class="o">.</span><span class="n">address</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+   <span class="n">account</span> <span class="o">=</span> <span class="n">select_account</span><span class="p">(</span><span class="s2">&quot;Select an account to use&quot;</span><span class="p">)</span>
+   <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;You selected </span><span class="si">{</span><span class="n">account</span><span class="o">.</span><span class="n">address</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Similarly, there are a couple custom arguments for aliases alone that are useful when making CLIs for account creation.
@@ -339,6 +381,32 @@ And visa-versa when using <a class="reference external" href="../methoddocs/cli.
 <span class="k">def</span> <span class="nf">create_account</span><span class="p">(</span><span class="n">alias</span><span class="p">):</span>
     <span class="c1"># We know the alias is not yet used in Ape at this point.</span>
     <span class="n">click</span><span class="o">.</span><span class="n">echo</span><span class="p">(</span><span class="n">alias</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can control additional filtering of the accounts by using the <code class="docutils literal notranslate"><span class="pre">account_type</span></code> kwarg.
+Use <code class="docutils literal notranslate"><span class="pre">account_type</span></code> to filter the choices by specific types of <a class="reference external" href="../methoddocs/api.html#ape.api.accounts.AccountAPI">AccountAPI</a>, or you can give it a list of already known accounts, or you can provide a callable-filter that takes an account and returns a boolean.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">click</span>
+<span class="kn">from</span> <span class="nn">ape</span> <span class="kn">import</span> <span class="n">accounts</span>
+<span class="kn">from</span> <span class="nn">ape.cli</span> <span class="kn">import</span> <span class="n">existing_alias_argument</span><span class="p">,</span> <span class="n">get_user_selected_account</span>
+<span class="kn">from</span> <span class="nn">ape_accounts.accounts</span> <span class="kn">import</span> <span class="n">KeyfileAccount</span>
+
+<span class="c1"># NOTE: This is just an example and not anything specific or recommended.</span>
+<span class="n">APPLICATION_PREFIX</span> <span class="o">=</span> <span class="s2">&quot;&lt;FOO_BAR&gt;&quot;</span>
+
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="nd">@existing_alias_argument</span><span class="p">(</span><span class="n">account_type</span><span class="o">=</span><span class="n">KeyfileAccount</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cli_0</span><span class="p">(</span><span class="n">alias</span><span class="p">):</span>
+   <span class="k">pass</span>
+   
+<span class="nd">@click</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
+<span class="nd">@existing_alias_argument</span><span class="p">(</span><span class="n">account_type</span><span class="o">=</span><span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">alias</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">APPLICATION_PREFIX</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">cli_1</span><span class="p">(</span><span class="n">alias</span><span class="p">):</span>
+   <span class="k">pass</span>
+    
+   
+<span class="c1"># Select from the given accounts directly.</span>
+<span class="n">my_accounts</span> <span class="o">=</span> <span class="p">[</span><span class="n">accounts</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;me&quot;</span><span class="p">),</span> <span class="n">accounts</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;me2&quot;</span><span class="p">)]</span>
+<span class="n">selected_account</span> <span class="o">=</span> <span class="n">get_user_selected_account</span><span class="p">(</span><span class="n">account_type</span><span class="o">=</span><span class="n">my_accounts</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -373,6 +441,12 @@ And visa-versa when using <a class="reference external" href="../methoddocs/cli.
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
+
+  
+      <li><a href="https://github.com/ApeWorX/ape
+      /blob/main//docs/userguides/clis.rst">
+      Show on GitHub</a></li>
+  
 
 </body>
 </html>

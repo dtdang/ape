@@ -50,6 +50,19 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.7.7">v0.7.7</option>
+                <option value="v0.7.6">v0.7.6</option>
+                <option value="v0.7.5">v0.7.5</option>
+                <option value="v0.7.4">v0.7.4</option>
+                <option value="v0.7.3">v0.7.3</option>
+                <option value="v0.7.2">v0.7.2</option>
+                <option value="v0.7.1">v0.7.1</option>
+                <option value="v0.7.0">v0.7.0</option>
+                <option value="v0.6.27">v0.6.27</option>
+                <option value="v0.6.26">v0.6.26</option>
+                <option value="v0.6.25">v0.6.25</option>
+                <option value="v0.6.24">v0.6.24</option>
+                <option value="v0.6.23">v0.6.23</option>
                 <option value="v0.6.22">v0.6.22</option>
                 <option value="v0.6.21">v0.6.21</option>
                 <option value="v0.6.20">v0.6.20</option>
@@ -131,6 +144,7 @@
 <li class="toctree-l1"><a class="reference internal" href="clis.html">CLIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">Querying Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forking_networks.html">Forking Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="developing_plugins.html">Developing Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configure Ape</a></li>
 <li class="toctree-l1"><a class="reference internal" href="transactions.html">Making Transactions</a></li>
@@ -162,6 +176,7 @@
 <p class="caption" role="heading"><span class="caption-text">Python Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape.html">ape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_accounts.html">ape-accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/api.html">ape.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/cli.html">ape.cli</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/contracts.html">ape.contracts</a></li>
@@ -188,7 +203,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Publishing</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/userguides/publishing.md.txt" rel="nofollow"> View page source</a>
+              <a href="https://github.com/ApeWorX/ape/blob/main/docs/userguides/publishing.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -239,10 +254,11 @@ Example:</p>
 <span class="n">networks</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">explorer</span><span class="o">.</span><span class="n">publish_contract</span><span class="p">(</span><span class="s2">&quot;0x123...&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>If you want to automatically publish the source code upon deployment, you can use the <code class="docutils literal notranslate"><span class="pre">publish=</span></code> kwarg on the deploy methods:</p>
+<p>If you want to automatically publish the source code upon deployment, you can use the <code class="docutils literal notranslate"><span class="pre">publish=</span></code> kwarg on the <code class="docutils literal notranslate"><span class="pre">deploy</span></code> methods:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ape</span> <span class="kn">import</span> <span class="n">accounts</span><span class="p">,</span> <span class="n">project</span>
 
-<span class="n">accounts</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">MyContract</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">account</span> <span class="o">=</span> <span class="n">accounts</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;&lt;ALIAS&gt;&quot;</span><span class="p">)</span>
+<span class="n">account</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="n">project</span><span class="o">.</span><span class="n">MyContract</span><span class="p">,</span> <span class="n">publish</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -277,6 +293,12 @@ Example:</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
+
+  
+      <li><a href="https://github.com/ApeWorX/ape
+      /blob/main//docs/userguides/publishing.rst">
+      Show on GitHub</a></li>
+  
 
 </body>
 </html>

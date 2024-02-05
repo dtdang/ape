@@ -49,6 +49,19 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.7.7">v0.7.7</option>
+                <option value="v0.7.6">v0.7.6</option>
+                <option value="v0.7.5">v0.7.5</option>
+                <option value="v0.7.4">v0.7.4</option>
+                <option value="v0.7.3">v0.7.3</option>
+                <option value="v0.7.2">v0.7.2</option>
+                <option value="v0.7.1">v0.7.1</option>
+                <option value="v0.7.0">v0.7.0</option>
+                <option value="v0.6.27">v0.6.27</option>
+                <option value="v0.6.26">v0.6.26</option>
+                <option value="v0.6.25">v0.6.25</option>
+                <option value="v0.6.24">v0.6.24</option>
+                <option value="v0.6.23">v0.6.23</option>
                 <option value="v0.6.22">v0.6.22</option>
                 <option value="v0.6.21">v0.6.21</option>
                 <option value="v0.6.20">v0.6.20</option>
@@ -130,6 +143,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguides/clis.html">CLIs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/data.html">Querying Data</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/networks.html">Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguides/forking_networks.html">Forking Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/developing_plugins.html">Developing Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/config.html">Configure Ape</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/transactions.html">Making Transactions</a></li>
@@ -156,6 +170,7 @@
 <p class="caption" role="heading"><span class="caption-text">Python Reference</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ape.html">ape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ape_accounts.html">ape-accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">ape.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">ape.cli</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contracts.html">ape.contracts</a></li>
@@ -165,12 +180,20 @@
 <li class="toctree-l1"><a class="reference internal" href="types.html">ape.types</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ape.utils</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#ape.utils.BaseInterface"><code class="docutils literal notranslate"><span class="pre">BaseInterface</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ape.utils.BaseInterfaceModel"><code class="docutils literal notranslate"><span class="pre">BaseInterfaceModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ape.utils.BaseInterfaceModel"><code class="docutils literal notranslate"><span class="pre">BaseInterfaceModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ape.utils.BaseInterfaceModel.model_config"><code class="docutils literal notranslate"><span class="pre">BaseInterfaceModel.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ape.utils.BaseInterfaceModel.model_fields"><code class="docutils literal notranslate"><span class="pre">BaseInterfaceModel.model_fields</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ape.utils.ExtraAttributesMixin"><code class="docutils literal notranslate"><span class="pre">ExtraAttributesMixin</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ape.utils.ExtraModelAttributes"><code class="docutils literal notranslate"><span class="pre">ExtraModelAttributes</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ape.utils.ExtraModelAttributes.additional_error_message"><code class="docutils literal notranslate"><span class="pre">ExtraModelAttributes.additional_error_message</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ape.utils.ExtraModelAttributes.attributes"><code class="docutils literal notranslate"><span class="pre">ExtraModelAttributes.attributes</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ape.utils.ExtraModelAttributes.get"><code class="docutils literal notranslate"><span class="pre">ExtraModelAttributes.get()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ape.utils.ExtraModelAttributes.include_getattr"><code class="docutils literal notranslate"><span class="pre">ExtraModelAttributes.include_getattr</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ape.utils.ExtraModelAttributes.include_getitem"><code class="docutils literal notranslate"><span class="pre">ExtraModelAttributes.include_getitem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ape.utils.ExtraModelAttributes.model_config"><code class="docutils literal notranslate"><span class="pre">ExtraModelAttributes.model_config</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ape.utils.ExtraModelAttributes.model_fields"><code class="docutils literal notranslate"><span class="pre">ExtraModelAttributes.model_fields</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ape.utils.ExtraModelAttributes.name"><code class="docutils literal notranslate"><span class="pre">ExtraModelAttributes.name</span></code></a></li>
 </ul>
 </li>
@@ -229,6 +252,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#ape.utils.is_struct"><code class="docutils literal notranslate"><span class="pre">is_struct()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ape.utils.is_zero_hex"><code class="docutils literal notranslate"><span class="pre">is_zero_hex()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ape.utils.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ape.utils.pragma_str_to_specifier_set"><code class="docutils literal notranslate"><span class="pre">pragma_str_to_specifier_set()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ape.utils.raises_not_implemented"><code class="docutils literal notranslate"><span class="pre">raises_not_implemented()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ape.utils.returns_array"><code class="docutils literal notranslate"><span class="pre">returns_array()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ape.utils.run_until_complete"><code class="docutils literal notranslate"><span class="pre">run_until_complete()</span></code></a></li>
@@ -259,7 +283,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">ape.utils</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/methoddocs/utils.md.txt" rel="nofollow"> View page source</a>
+              <a href="https://github.com/ApeWorX/ape/blob/main/docs/methoddocs/utils.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -281,13 +305,42 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ape.utils.</span></span><span class="sig-name descname"><span class="pre">BaseInterfaceModel</span></span><a class="headerlink" href="#ape.utils.BaseInterfaceModel" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#ape.utils.BaseInterface" title="ape.utils.basemodel.BaseInterface"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInterface</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
 <p>An abstract base-class with manager access on a pydantic base model.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ape.utils.BaseInterfaceModel.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True}</span></em><a class="headerlink" href="#ape.utils.BaseInterfaceModel.model_config" title="Permalink to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ape.utils.BaseInterfaceModel.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#ape.utils.BaseInterfaceModel.model_fields" title="Permalink to this definition"></a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ape.utils.ExtraAttributesMixin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ape.utils.</span></span><span class="sig-name descname"><span class="pre">ExtraAttributesMixin</span></span><a class="headerlink" href="#ape.utils.ExtraAttributesMixin" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A mixin to use on models that provide <code class="docutils literal notranslate"><span class="pre">ExtraModelAttributes</span></code>.
+<strong>NOTE</strong>: Must come _before_ your base-model class in subclass tuple to function.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="ape.utils.ExtraModelAttributes">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ape.utils.</span></span><span class="sig-name descname"><span class="pre">ExtraModelAttributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">BaseModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_getattr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_getitem</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ape.utils.ExtraModelAttributes" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ape.utils.</span></span><span class="sig-name descname"><span class="pre">ExtraModelAttributes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">BaseModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_getattr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_getitem</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">additional_error_message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ape.utils.ExtraModelAttributes" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
 <p>A class for defining extra model attributes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ape.utils.ExtraModelAttributes.additional_error_message">
+<span class="sig-name descname"><span class="pre">additional_error_message</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#ape.utils.ExtraModelAttributes.additional_error_message" title="Permalink to this definition"></a></dt>
+<dd><p>An additional error message to include at the end of
+the normal IndexError message.</p>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ape.utils.ExtraModelAttributes.attributes">
 <span class="sig-name descname"><span class="pre">attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">BaseModel</span></em><a class="headerlink" href="#ape.utils.ExtraModelAttributes.attributes" title="Permalink to this definition"></a></dt>
@@ -321,6 +374,20 @@
 <dt class="sig sig-object py" id="ape.utils.ExtraModelAttributes.include_getitem">
 <span class="sig-name descname"><span class="pre">include_getitem</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#ape.utils.ExtraModelAttributes.include_getitem" title="Permalink to this definition"></a></dt>
 <dd><p>Whether to use these in <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ape.utils.ExtraModelAttributes.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arbitrary_types_allowed':</span> <span class="pre">True}</span></em><a class="headerlink" href="#ape.utils.ExtraModelAttributes.model_config" title="Permalink to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ape.utils.ExtraModelAttributes.model_fields">
+<span class="sig-name descname"><span class="pre">model_fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">FieldInfo</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'additional_error_message':</span> <span class="pre">FieldInfo(annotation=Union[str,</span> <span class="pre">NoneType],</span> <span class="pre">required=False),</span> <span class="pre">'attributes':</span> <span class="pre">FieldInfo(annotation=Union[Dict[str,</span> <span class="pre">Any],</span> <span class="pre">BaseModel],</span> <span class="pre">required=True),</span> <span class="pre">'include_getattr':</span> <span class="pre">FieldInfo(annotation=bool,</span> <span class="pre">required=False,</span> <span class="pre">default=True),</span> <span class="pre">'include_getitem':</span> <span class="pre">FieldInfo(annotation=bool,</span> <span class="pre">required=False,</span> <span class="pre">default=False),</span> <span class="pre">'name':</span> <span class="pre">FieldInfo(annotation=str,</span> <span class="pre">required=True)}</span></em><a class="headerlink" href="#ape.utils.ExtraModelAttributes.model_fields" title="Permalink to this definition"></a></dt>
+<dd><p>Metadata about the fields defined on the model,
+mapping of field names to [<cite>FieldInfo</cite>][pydantic.fields.FieldInfo].</p>
+<p>This replaces <cite>Model.__fields__</cite> from Pydantic V1.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -697,7 +764,7 @@ will likely revert.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="ape.utils.generate_dev_accounts">
-<span class="sig-prename descclassname"><span class="pre">ape.utils.</span></span><span class="sig-name descname"><span class="pre">generate_dev_accounts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mnemonic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">junk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_accounts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hd_path_format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&quot;m/44'/60'/0'/{}&quot;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ape.utils.GeneratedDevAccount" title="ape.utils.testing.GeneratedDevAccount"><span class="pre">GeneratedDevAccount</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ape.utils.generate_dev_accounts" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">ape.utils.</span></span><span class="sig-name descname"><span class="pre">generate_dev_accounts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mnemonic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">test</span> <span class="pre">junk'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_accounts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hd_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&quot;m/44'/60'/0'/0&quot;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#ape.utils.GeneratedDevAccount" title="ape.utils.testing.GeneratedDevAccount"><span class="pre">GeneratedDevAccount</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ape.utils.generate_dev_accounts" title="Permalink to this definition"></a></dt>
 <dd><p>Create accounts from the given test mnemonic.
 Use these accounts (or the mnemonic) in chain-genesis
 for testing providers.</p>
@@ -706,8 +773,10 @@ for testing providers.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mnemonic</strong> (<em>str</em>) – mnemonic phrase or seed words.</p></li>
 <li><p><strong>number_of_accounts</strong> (<em>int</em>) – Number of accounts. Defaults to <code class="docutils literal notranslate"><span class="pre">10</span></code>.</p></li>
-<li><p><strong>hd_path_format</strong> (<em>str</em>) – Hard Wallets/HD Keys derivation path format.
-Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;m/44'/60'/0'/{}&quot;</span></code>.</p></li>
+<li><p><strong>hd_path</strong> (<em>str</em>) – Hard Wallets/HD Keys derivation path format.
+Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;m/44'/60'/0'/0&quot;</span></code>.</p></li>
+<li><p><strong>start_index</strong> (<em>int</em>) – The index to start from in the path. Defaults
+to 0.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -887,6 +956,21 @@ and is able to be load.</p></li>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="ape.utils.pragma_str_to_specifier_set">
+<span class="sig-prename descclassname"><span class="pre">ape.utils.</span></span><span class="sig-name descname"><span class="pre">pragma_str_to_specifier_set</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pragma_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">SpecifierSet</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#ape.utils.pragma_str_to_specifier_set" title="Permalink to this definition"></a></dt>
+<dd><p>Convert the given pragma str to a <code class="docutils literal notranslate"><span class="pre">packaging.version.SpecifierSet</span></code>
+if possible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pragma_str</strong> (<em>str</em>) – The str to convert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">Optional[packaging.version.SpecifierSet]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="ape.utils.raises_not_implemented">
 <span class="sig-prename descclassname"><span class="pre">ape.utils.</span></span><span class="sig-name descname"><span class="pre">raises_not_implemented</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fn</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ape.utils.raises_not_implemented" title="Permalink to this definition"></a></dt>
 <dd><p>Decorator for raising helpful not implemented error.</p>
@@ -1007,6 +1091,12 @@ a user’s sys paths without permanently modifying it.</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script> 
+
+  
+      <li><a href="https://github.com/ApeWorX/ape
+      /blob/main//docs/methoddocs/utils.rst">
+      Show on GitHub</a></li>
+  
 
 </body>
 </html>
