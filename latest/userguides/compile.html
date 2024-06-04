@@ -50,6 +50,13 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.8.2">v0.8.2</option>
+                <option value="v0.8.1">v0.8.1</option>
+                <option value="v0.8.0">v0.8.0</option>
+                <option value="v0.7.23">v0.7.23</option>
+                <option value="v0.7.22">v0.7.22</option>
+                <option value="v0.7.21">v0.7.21</option>
+                <option value="v0.7.20">v0.7.20</option>
                 <option value="v0.7.19">v0.7.19</option>
                 <option value="v0.7.18">v0.7.18</option>
                 <option value="v0.7.17">v0.7.17</option>
@@ -158,6 +165,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#settings">Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#compile-source-code">Compile Source Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-extra">Output Extra</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="clis.html">CLIs</a></li>
@@ -174,6 +182,7 @@
 <li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trace.html">Traces</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">CLI Reference</span></p>
 <ul>
@@ -187,10 +196,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/run.html">run</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../commands/test.html">test</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Python Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Core Python Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape.html">ape</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_accounts.html">ape-accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/api.html">ape.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/cli.html">ape.cli</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/contracts.html">ape.contracts</a></li>
@@ -199,6 +207,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/plugins.html">ape.plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/types.html">ape.types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/utils.html">ape.utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Plugin Python Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_accounts.html">ape-accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_compile.html">ape-compile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_ethereum.html">ape-ethereum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_ethereum.html#module-ape_ethereum.multicall">ape-ethereum.multicall</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_node.html">ape-node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_pm.html">ape-pm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_test.html">ape-test</a></li>
 </ul>
 
         </div>
@@ -261,7 +279,10 @@ This is useful if you are unable or unwilling to install a compiler.</p></li>
 <li><p><strong>Raw Compiler Output</strong>: If you have an artifact with binary compiled elsewhere, you can include it in your project.
 This is useful if you want to use contracts from much larger projects as dependency for your test cases.</p></li>
 </ol>
-<p><strong>WARN</strong>: You may have to adjust name and source ID similarly to raw contract-type output.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You may have to adjust name and source ID similarly to raw contract-type output.</p>
+</div>
 </section>
 <section id="other-compiler-plugins">
 <h2>Other Compiler Plugins<a class="headerlink" href="#other-compiler-plugins" title="Permalink to this heading"></a></h2>
@@ -278,6 +299,7 @@ To append file-globs to the exclusions list, edit your <code class="docutils lit
 <span class="w">  </span><span class="nt">exclude</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;examples&quot;</span><span class="w">  </span><span class="c1"># Exclude all files in the examples/ directory</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;*Mock.sol&quot;</span><span class="w">  </span><span class="c1"># Exclude all files ending in Mock.sol</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">r&quot;(?!.*_mock\.vy$)&quot;</span><span class="w">  </span><span class="c1"># You can also use regex instead of globs (prefix with `r`).</span>
 </pre></div>
 </div>
 <p>You can also exclude files using the <code class="docutils literal notranslate"><span class="pre">--config-override</span></code> CLI option:</p>
@@ -301,22 +323,8 @@ See <a class="reference external" href="./dependencies.html">this guide</a> to l
 </section>
 <section id="settings">
 <h2>Settings<a class="headerlink" href="#settings" title="Permalink to this heading"></a></h2>
-<p>Generally, configure compiler plugins using your <code class="docutils literal notranslate"><span class="pre">ape-config.yaml</span></code> file.
-One setting that applies to many compiler plugins is <code class="docutils literal notranslate"><span class="pre">cache_folder</span></code>, which holds dependency source files the compiler uses when compiling your contracts.
-By default, the folder is in your <code class="docutils literal notranslate"><span class="pre">contracts/.cache</span></code> folder but there are times you may want to move this to another location.
-Paths are relative to the project directory.
-For instance, to move the dependency cahce to the root project directory:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">compile</span><span class="p">:</span>
-<span class="w">   </span><span class="nt">cache_folder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.cache</span>
-</pre></div>
-</div>
-<div class="admonition caution">
-<p class="admonition-title">Caution</p>
-<p>Changing the location of the dependency cache folder may alter the the output bytecode of your contracts from some compilers.
-Specifically, the <a class="reference external" href="https://docs.soliditylang.org/en/latest/metadata.html#encoding-of-the-metadata-hash-in-the-bytecode">solc compiler will apend a hash of the input metadata to the contract bytecode</a> which will change with contract path or compiler settings changes.
-This may impact things like contract verification on existing projects.</p>
-</div>
-<p>As another example, when using the <code class="docutils literal notranslate"><span class="pre">vyper</span></code> plugin, you can configure settings under the <code class="docutils literal notranslate"><span class="pre">vyper</span></code> key:</p>
+<p>Generally, configure compiler plugins using your <code class="docutils literal notranslate"><span class="pre">ape-config.yaml</span></code> file.</p>
+<p>For example, when using the <code class="docutils literal notranslate"><span class="pre">vyper</span></code> plugin, you can configure settings under the <code class="docutils literal notranslate"><span class="pre">vyper</span></code> key:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">vyper</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.3.10</span>
 </pre></div>
@@ -365,6 +373,19 @@ This is not limited to compiler settings; you can include other settings, such a
 <span class="n">instance</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">deploy</span><span class="p">(</span><span class="n">sender</span><span class="o">=</span><span class="n">owner</span><span class="p">)</span>
 </pre></div>
 </div>
+</section>
+<section id="output-extra">
+<h2>Output Extra<a class="headerlink" href="#output-extra" title="Permalink to this heading"></a></h2>
+<p>Sometimes, there are extra output styles you may want.
+For example, to output minified ABI JSONs, use the following config:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">compile</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">output_extra</span><span class="p">:</span>
+<span class="w">     </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ABI</span>
+</pre></div>
+</div>
+<p>Then, after compiling, you should notice minified ABI json files in your <code class="docutils literal notranslate"><span class="pre">.build/abi</span></code> folder.
+This is useful if hosting these files on a web-server.</p>
+<p>To see the full list of supported output-extra, see <a class="reference external" href="../methoddocs/ape_compile.html#ape_compile.OutputExtras">the OutpuExtra enum documentation</a>.</p>
 </section>
 </section>
 

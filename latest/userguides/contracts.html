@@ -50,6 +50,13 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.8.2">v0.8.2</option>
+                <option value="v0.8.1">v0.8.1</option>
+                <option value="v0.8.0">v0.8.0</option>
+                <option value="v0.7.23">v0.7.23</option>
+                <option value="v0.7.22">v0.7.22</option>
+                <option value="v0.7.21">v0.7.21</option>
+                <option value="v0.7.20">v0.7.20</option>
                 <option value="v0.7.19">v0.7.19</option>
                 <option value="v0.7.18">v0.7.18</option>
                 <option value="v0.7.17">v0.7.17</option>
@@ -188,6 +195,7 @@
 <li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trace.html">Traces</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">CLI Reference</span></p>
 <ul>
@@ -201,10 +209,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/run.html">run</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../commands/test.html">test</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Python Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Core Python Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape.html">ape</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_accounts.html">ape-accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/api.html">ape.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/cli.html">ape.cli</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/contracts.html">ape.contracts</a></li>
@@ -213,6 +220,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/plugins.html">ape.plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/types.html">ape.types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/utils.html">ape.utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Plugin Python Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_accounts.html">ape-accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_compile.html">ape-compile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_ethereum.html">ape-ethereum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_ethereum.html#module-ape_ethereum.multicall">ape-ethereum.multicall</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_node.html">ape-node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_pm.html">ape-pm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_test.html">ape-test</a></li>
 </ul>
 
         </div>
@@ -249,7 +266,10 @@ The other way is to initialize an already-deployed contract using its address.</
 <h2>From Deploy<a class="headerlink" href="#from-deploy" title="Permalink to this heading"></a></h2>
 <p>Deploy contracts from your project using the <code class="docutils literal notranslate"><span class="pre">project</span></code> root-level object.
 You deploy contracts using Python functions such as <a class="reference external" href="../methoddocs/api.html#ape.api.accounts.AccountAPI.deploy">AccountAPI.deploy</a> or <a class="reference external" href="../methoddocs/contracts.html#ape.contracts.base.ContractContainer.deploy">ContractContainer.deploy</a>.</p>
-<p><strong>NOTE</strong>: You can run Ape’s deploy functions from anywhere you run Python!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can run Ape’s deploy functions anywhere you run Python!</p>
+</div>
 <p>You need both an account and a contract in order to deploy a contract, as the deployment process requires a transaction to submit the contract data to the blockchain.
 To learn about accounts and how to use them, see the <a class="reference external" href="./accounts.html">Accounts Guide</a>.
 You also need the contract.
@@ -448,7 +468,10 @@ For this guide, assume we are using the default transaction type in Ape for Ethe
 </pre></div>
 </div>
 <p>Notice that transacting returns a <a class="reference external" href="../methoddocs/api.html#ape.api.transactions.ReceiptAPI">ReceiptAPI</a> object which contains all the receipt data, such as <code class="docutils literal notranslate"><span class="pre">gas_used</span></code>.</p>
-<p><strong>NOTE</strong>: If you need the <code class="docutils literal notranslate"><span class="pre">return_value</span></code> from a transaction, you have to either treat transaction as a call (see the section below!) or use a provider with tracing-features enabled (such as <code class="docutils literal notranslate"><span class="pre">ape-foundry</span></code> or <code class="docutils literal notranslate"><span class="pre">ape-geth</span></code>) and access the <a class="reference external" href="../methoddocs/api.html#ape.api.transactions.ReceiptAPI.return_value">return_value</a> property on the receipt.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you need the <code class="docutils literal notranslate"><span class="pre">return_value</span></code> from a transaction, you have to either treat transaction as a call (see the section below!) or use a provider with tracing-features enabled (such as <code class="docutils literal notranslate"><span class="pre">ape-foundry</span></code> or <code class="docutils literal notranslate"><span class="pre">ape-node</span></code>) and access the <a class="reference external" href="../methoddocs/api.html#ape.api.transactions.ReceiptAPI.return_value">return_value</a> property on the receipt.</p>
+</div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">receipt</span><span class="o">.</span><span class="n">return_value</span> <span class="o">==</span> <span class="mi">123</span>
 </pre></div>
 </div>

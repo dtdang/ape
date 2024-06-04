@@ -50,6 +50,13 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.8.2">v0.8.2</option>
+                <option value="v0.8.1">v0.8.1</option>
+                <option value="v0.8.0">v0.8.0</option>
+                <option value="v0.7.23">v0.7.23</option>
+                <option value="v0.7.22">v0.7.22</option>
+                <option value="v0.7.21">v0.7.21</option>
+                <option value="v0.7.20">v0.7.20</option>
                 <option value="v0.7.19">v0.7.19</option>
                 <option value="v0.7.18">v0.7.18</option>
                 <option value="v0.7.17">v0.7.17</option>
@@ -172,6 +179,7 @@
 <li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trace.html">Traces</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">CLI Reference</span></p>
 <ul>
@@ -185,10 +193,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../commands/run.html">run</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../commands/test.html">test</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Python Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Core Python Reference</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape.html">ape</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_accounts.html">ape-accounts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/api.html">ape.api</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/cli.html">ape.cli</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/contracts.html">ape.contracts</a></li>
@@ -197,6 +204,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/plugins.html">ape.plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/types.html">ape.types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../methoddocs/utils.html">ape.utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Plugin Python Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_accounts.html">ape-accounts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_compile.html">ape-compile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_ethereum.html">ape-ethereum</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_ethereum.html#module-ape_ethereum.multicall">ape-ethereum.multicall</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_node.html">ape-node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_pm.html">ape-pm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../methoddocs/ape_test.html">ape-test</a></li>
 </ul>
 
         </div>
@@ -358,12 +375,12 @@ Here is an example:</p>
 <p>And when invoking the command from the CLI, it would look like the following:
 (where <code class="docutils literal notranslate"><span class="pre">&lt;prefix&gt;</span></code> is either <code class="docutils literal notranslate"><span class="pre">ape</span> <span class="pre">run</span></code> for scripts or <code class="docutils literal notranslate"><span class="pre">ape</span> <span class="pre">&lt;custom-plugin-cmd&gt;</span></code> for plugins)</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>&lt;prefix&gt;<span class="w"> </span>cmd<span class="w">  </span><span class="c1"># Use the default account.</span>
-&lt;prefix&gt;<span class="w"> </span>cmd<span class="w"> </span>--account<span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="c1"># Use first account that would show up in `get_user_selected_account()`.</span>
+&lt;prefix&gt;<span class="w"> </span>cmd<span class="w"> </span>--account<span class="w"> </span><span class="m">0</span><span class="w">  </span><span class="c1"># Use first account that would show up in `select_account()`.</span>
 &lt;prefix&gt;<span class="w"> </span>cmd<span class="w"> </span>--account<span class="w"> </span>metamask<span class="w">  </span><span class="c1"># Use account with alias &quot;metamask&quot;.</span>
 &lt;prefix&gt;<span class="w"> </span>cmd<span class="w"> </span>--account<span class="w"> </span>TEST::0<span class="w">  </span><span class="c1"># Use the test account at index 0.</span>
 </pre></div>
 </div>
-<p>Alternatively, you can call the <a class="reference external" href="../methoddocs/cli.html#ape.cli.choices.get_user_selected_account">get_user_selected_account()</a> directly to have more control of when the account gets selected:</p>
+<p>Alternatively, you can call the <a class="reference external" href="../methoddocs/cli.html#ape.cli.choices.select_account">select_account()</a> directly to have more control of when the account gets selected:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">click</span>
 <span class="kn">from</span> <span class="nn">ape.cli</span> <span class="kn">import</span> <span class="n">select_account</span>
 
@@ -399,7 +416,7 @@ And visa-versa when using <a class="reference external" href="../methoddocs/cli.
 Use <code class="docutils literal notranslate"><span class="pre">account_type</span></code> to filter the choices by specific types of <a class="reference external" href="../methoddocs/api.html#ape.api.accounts.AccountAPI">AccountAPI</a>, or you can give it a list of already known accounts, or you can provide a callable-filter that takes an account and returns a boolean.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">click</span>
 <span class="kn">from</span> <span class="nn">ape</span> <span class="kn">import</span> <span class="n">accounts</span>
-<span class="kn">from</span> <span class="nn">ape.cli</span> <span class="kn">import</span> <span class="n">existing_alias_argument</span><span class="p">,</span> <span class="n">get_user_selected_account</span>
+<span class="kn">from</span> <span class="nn">ape.cli</span> <span class="kn">import</span> <span class="n">existing_alias_argument</span><span class="p">,</span> <span class="n">select_account</span>
 <span class="kn">from</span> <span class="nn">ape_accounts.accounts</span> <span class="kn">import</span> <span class="n">KeyfileAccount</span>
 
 <span class="c1"># NOTE: This is just an example and not anything specific or recommended.</span>
@@ -417,7 +434,7 @@ Use <code class="docutils literal notranslate"><span class="pre">account_type</s
 
 <span class="c1"># Select from the given accounts directly.</span>
 <span class="n">my_accounts</span> <span class="o">=</span> <span class="p">[</span><span class="n">accounts</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;me&quot;</span><span class="p">),</span> <span class="n">accounts</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;me2&quot;</span><span class="p">)]</span>
-<span class="n">selected_account</span> <span class="o">=</span> <span class="n">get_user_selected_account</span><span class="p">(</span><span class="n">account_type</span><span class="o">=</span><span class="n">my_accounts</span><span class="p">)</span>
+<span class="n">selected_account</span> <span class="o">=</span> <span class="n">select_account</span><span class="p">(</span><span class="n">account_type</span><span class="o">=</span><span class="n">my_accounts</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
