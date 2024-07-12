@@ -50,6 +50,11 @@
               <option value="">Select version...</option>
               <option value="latest">latest</option>
               <option value="stable">stable</option>
+                <option value="v0.8.8">v0.8.8</option>
+                <option value="v0.8.7">v0.8.7</option>
+                <option value="v0.8.6">v0.8.6</option>
+                <option value="v0.8.5">v0.8.5</option>
+                <option value="v0.8.4">v0.8.4</option>
                 <option value="v0.8.3">v0.8.3</option>
                 <option value="v0.8.2">v0.8.2</option>
                 <option value="v0.8.1">v0.8.1</option>
@@ -166,7 +171,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguides/forking_networks.html">Forking Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/developing_plugins.html">Developing Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/config.html">Configure Ape</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguides/transactions.html">Making Transactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguides/transactions.html">Transactions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/console.html">Ape Console</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/contracts.html">Contracts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguides/proxy.html">Proxy Contracts</a></li>
@@ -297,8 +302,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-ape.managers.config">Config</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#ape.managers.config.ConfigManager"><code class="docutils literal notranslate"><span class="pre">ConfigManager</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.config.ConfigManager.extract_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.extract_config()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ape.managers.config.ConfigManager.get_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.get_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.config.ConfigManager.global_config"><code class="docutils literal notranslate"><span class="pre">ConfigManager.global_config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ape.managers.config.ConfigManager.isolate_data_folder"><code class="docutils literal notranslate"><span class="pre">ConfigManager.isolate_data_folder()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -375,6 +380,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#ape.managers.networks.NetworkManager"><code class="docutils literal notranslate"><span class="pre">NetworkManager</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.networks.NetworkManager.active_provider"><code class="docutils literal notranslate"><span class="pre">NetworkManager.active_provider</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.networks.NetworkManager.create_custom_provider"><code class="docutils literal notranslate"><span class="pre">NetworkManager.create_custom_provider()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ape.managers.networks.NetworkManager.custom_networks"><code class="docutils literal notranslate"><span class="pre">NetworkManager.custom_networks</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.networks.NetworkManager.default_ecosystem"><code class="docutils literal notranslate"><span class="pre">NetworkManager.default_ecosystem</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.networks.NetworkManager.ecosystem"><code class="docutils literal notranslate"><span class="pre">NetworkManager.ecosystem</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.networks.NetworkManager.ecosystem_names"><code class="docutils literal notranslate"><span class="pre">NetworkManager.ecosystem_names</span></code></a></li>
@@ -443,6 +449,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.LocalProject.load_manifest"><code class="docutils literal notranslate"><span class="pre">LocalProject.load_manifest()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.LocalProject.meta"><code class="docutils literal notranslate"><span class="pre">LocalProject.meta</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.LocalProject.project_api"><code class="docutils literal notranslate"><span class="pre">LocalProject.project_api</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.LocalProject.reload_config"><code class="docutils literal notranslate"><span class="pre">LocalProject.reload_config()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.LocalProject.sources"><code class="docutils literal notranslate"><span class="pre">LocalProject.sources</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.LocalProject.unpack"><code class="docutils literal notranslate"><span class="pre">LocalProject.unpack()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.LocalProject.update_manifest"><code class="docutils literal notranslate"><span class="pre">LocalProject.update_manifest()</span></code></a></li>
@@ -451,7 +458,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#ape.managers.project.Project"><code class="docutils literal notranslate"><span class="pre">Project</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.Project.add_compiler_data"><code class="docutils literal notranslate"><span class="pre">Project.add_compiler_data()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.Project.dependencies"><code class="docutils literal notranslate"><span class="pre">Project.dependencies</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.Project.from_manifest"><code class="docutils literal notranslate"><span class="pre">Project.from_manifest()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.Project.is_compiled"><code class="docutils literal notranslate"><span class="pre">Project.is_compiled</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.Project.isolate_in_tempdir"><code class="docutils literal notranslate"><span class="pre">Project.isolate_in_tempdir()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.Project.reconfigure"><code class="docutils literal notranslate"><span class="pre">Project.reconfigure()</span></code></a></li>
@@ -461,6 +467,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#ape.managers.project.ProjectManager"><code class="docutils literal notranslate"><span class="pre">ProjectManager</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.ProjectManager.from_manifest"><code class="docutils literal notranslate"><span class="pre">ProjectManager.from_manifest()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ape.managers.project.ProjectManager.from_python_library"><code class="docutils literal notranslate"><span class="pre">ProjectManager.from_python_library()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#ape.managers.project.SourceManager"><code class="docutils literal notranslate"><span class="pre">SourceManager</span></code></a><ul>
@@ -1643,26 +1650,20 @@ definitions, see <a class="reference internal" href="api.html#ape.api.config.Ape
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="ape.managers.config.ConfigManager.get_config">
-<span class="sig-name descname"><span class="pre">get_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="api.html#ape.api.config.PluginConfig" title="ape.api.config.PluginConfig"><span class="pre">PluginConfig</span></a></span></span><a class="headerlink" href="#ape.managers.config.ConfigManager.get_config" title="Permalink to this definition"></a></dt>
-<dd><p>Get the config for a plugin.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>plugin_name</strong> (<em>str</em>) – The name of the plugin.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="api.html#ape.api.config.PluginConfig" title="ape.api.config.PluginConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">PluginConfig</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py property">
 <dt class="sig sig-object py" id="ape.managers.config.ConfigManager.global_config">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">global_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="api.html#ape.api.config.ApeConfig" title="ape.api.config.ApeConfig"><span class="pre">ApeConfig</span></a></em><a class="headerlink" href="#ape.managers.config.ConfigManager.global_config" title="Permalink to this definition"></a></dt>
 <dd><p>Root-level configurations, loaded from the
 data folder. <strong>NOTE</strong>: This only needs to load
 once and applies to all projects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ape.managers.config.ConfigManager.isolate_data_folder">
+<span class="sig-name descname"><span class="pre">isolate_data_folder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ape.managers.config.ConfigManager.isolate_data_folder" title="Permalink to this definition"></a></dt>
+<dd><p>Change Ape’s DATA_FOLDER to point a temporary path,
+in a context, for testing purposes. Any data
+cached to disk will not persist.</p>
 </dd></dl>
 
 </dd></dl>
@@ -2188,6 +2189,13 @@ when using HTTP.</p></li>
 <dd class="field-odd"><p><a class="reference internal" href="api.html#ape.api.providers.ProviderAPI" title="ape.api.providers.ProviderAPI"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProviderAPI</span></code></a></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ape.managers.networks.NetworkManager.custom_networks">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">custom_networks</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#ape.managers.networks.NetworkManager.custom_networks" title="Permalink to this definition"></a></dt>
+<dd><p>Custom network data defined in various ape-config files
+or added adhoc to the network manager.</p>
 </dd></dl>
 
 <dl class="py property">
@@ -2827,6 +2835,14 @@ Use when publishing your package manifest.</p>
 or a Brownie project (or something else).</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="ape.managers.project.LocalProject.reload_config">
+<span class="sig-name descname"><span class="pre">reload_config</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ape.managers.project.LocalProject.reload_config" title="Permalink to this definition"></a></dt>
+<dd><p>Reload the local ape-config.yaml file.
+This is useful if the file was modified in the
+active python session.</p>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="ape.managers.project.LocalProject.sources">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sources</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#ape.managers.project.SourceManager" title="ape.managers.project.SourceManager"><span class="pre">SourceManager</span></a></em><a class="headerlink" href="#ape.managers.project.LocalProject.sources" title="Permalink to this definition"></a></dt>
@@ -2880,24 +2896,6 @@ manifests or local source-paths.</p>
 <dt class="sig sig-object py" id="ape.managers.project.Project.dependencies">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dependencies</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#ape.managers.project.DependencyManager" title="ape.managers.project.DependencyManager"><span class="pre">DependencyManager</span></a></em><a class="headerlink" href="#ape.managers.project.Project.dependencies" title="Permalink to this definition"></a></dt>
 <dd><p>Project dependencies.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ape.managers.project.Project.from_manifest">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_manifest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PackageManifest</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ape.managers.project.Project" title="ape.managers.project.Project"><span class="pre">Project</span></a></span></span><a class="headerlink" href="#ape.managers.project.Project.from_manifest" title="Permalink to this definition"></a></dt>
-<dd><p>Create an Ape project using only a manifest.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>manifest</strong> (<em>Union</em><em>[</em><em>PackageManifest</em><em>, </em><a class="reference internal" href="cli.html#ape.cli.paramtype.Path" title="ape.cli.paramtype.Path"><em>Path</em></a><em>, </em><em>str</em><em>]</em>) – Either a manifest or a
-path to a manifest file.</p></li>
-<li><p><strong>config_override</strong> (<em>Optional</em><em>[</em><em>Dict</em><em>]</em>) – Optionally provide a config override.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ProjectManifest</span></code></p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -2965,6 +2963,27 @@ path to a manifest file.</p></li>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ProjectManifest</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ape.managers.project.ProjectManager.from_python_library">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_python_library</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_override</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#ape.managers.project.LocalProject" title="ape.managers.project.LocalProject"><span class="pre">LocalProject</span></a></span></span><a class="headerlink" href="#ape.managers.project.ProjectManager.from_python_library" title="Permalink to this definition"></a></dt>
+<dd><p>Create an Ape project instance from an installed Python package.
+This is useful for when Ape or Vyper projects are published to
+pypi.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>package_name</strong> (<em>str</em>) – The name of the package’s folder that would
+appear in site-packages.</p></li>
+<li><p><strong>config_override</strong> (<em>dict</em><em> | </em><em>None</em>) – Optionally override the configuration
+for this project.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#ape.managers.project.LocalProject" title="ape.managers.project.LocalProject"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalProject</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
